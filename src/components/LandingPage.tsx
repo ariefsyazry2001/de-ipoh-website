@@ -2,10 +2,10 @@ import Image from "next/image";
 import type { Copy, Locale } from "@/content/types";
 
 const experiences = [
-  ["Concubine Lane", "Heritage", "Food", "Old Town lanes, murals and snack stops.", "object-[12%_38%]"],
-  ["Kek Lok Tong", "Nature", "Relaxation", "Limestone gardens and cool cave air.", "object-[58%_42%]"],
-  ["Lost World of Tambun", "Adventure", "Family", "Hot springs, rides and mountain views.", "object-[78%_46%]"],
-  ["Kong Heng Square", "Food", "Culture", "Coffee, indie shops and Ipoh creative energy.", "object-[36%_62%]"],
+  ["Concubine Lane", "Heritage", "Food", "Old Town lanes, murals and snack stops.", "/images/Concubine%20Lane.jpg"],
+  ["Kek Lok Tong", "Nature", "Relaxation", "Limestone gardens and cool cave air.", "/images/Kek%20Lok%20Tong.jpg"],
+  ["Lost World of Tambun", "Adventure", "Family", "Hot springs, rides and mountain views.", "/images/Lost%20World.jpg"],
+  ["Kong Heng Square", "Food", "Culture", "Coffee, indie shops and Ipoh creative energy.", "/images/Kong%20Heng%20Square.jpg"],
 ];
 
 const interests = [
@@ -25,10 +25,10 @@ const steps = [
 ];
 
 const stories = [
-  ["Food & Drink", "10 Ipoh Breakfast Spots Worth Waking Up Early For", "Aug 14, 2026", "6 min read"],
-  ["Heritage", "The Stories Behind Ipoh Old Town", "Aug 12, 2026", "4 min read"],
-  ["Nature", "5 Limestone Caves You Should Explore", "Aug 10, 2026", "5 min read"],
-  ["Budget", "A Complete RM200 Ipoh Day Trip", "Aug 08, 2026", "7 min read"],
+  ["Food & Drink", "10 Ipoh Breakfast Spots Worth Waking Up Early For", "Aug 14, 2026", "6 min read", "/images/hero-kopitiam.jpg"],
+  ["Heritage", "The Stories Behind Ipoh Old Town", "Aug 12, 2026", "4 min read", "/images/hero-old-town.jpg"],
+  ["Nature", "5 Limestone Caves You Should Explore", "Aug 10, 2026", "5 min read", "/images/hero-cave-temple.jpg"],
+  ["Budget", "A Complete RM200 Ipoh Day Trip", "Aug 08, 2026", "7 min read", "/images/hero-limestone-lake.jpg"],
 ];
 
 const footerGroups = [
@@ -92,9 +92,9 @@ function Header({ homeHref, langHref, langLabel }: { homeHref: string; langHref:
 
 function Hero() {
   return (
-    <section id="discover" className="relative mx-auto grid max-w-7xl gap-10 px-5 pb-16 pt-12 md:grid-cols-[0.9fr_1.1fr] md:px-8 md:pb-24 md:pt-20">
+    <section id="discover" className="relative mx-auto grid max-w-7xl items-start gap-10 px-5 pb-14 pt-10 md:grid-cols-[0.95fr_1.05fr] md:px-8 md:pb-20 md:pt-16">
       <MapWash />
-      <div className="relative z-10 flex flex-col justify-center">
+      <div className="relative z-10 pt-2 md:pt-10">
         <p className="mb-5 w-fit rounded-full border border-[#171311]/15 px-4 py-2 text-xs font-bold uppercase tracking-[0.24em] text-[#d95336]">
           Ipoh, Perak
         </p>
@@ -114,12 +114,29 @@ function Hero() {
           </a>
         </div>
       </div>
-      <div className="relative z-10 min-h-[430px] md:min-h-[560px]">
-        <PhotoCard className="absolute left-0 top-8 h-[330px] w-[48%] rotate-[-1deg]" imageClass="object-[14%_40%]" label="Old Town" />
-        <PhotoCard className="absolute right-2 top-0 h-[230px] w-[42%] rotate-[2deg]" imageClass="object-[58%_42%]" label="Limestone" />
-        <PhotoCard className="absolute bottom-8 right-0 h-[260px] w-[48%] rotate-[-2deg]" imageClass="object-[82%_52%]" label="Coffee Trail" />
-        <div className="absolute bottom-12 left-10 hidden h-28 w-28 rounded-full border border-dashed border-[#d95336]/60 md:block" />
-        <div className="absolute bottom-32 left-1/2 hidden text-4xl text-[#f26d4f] md:block">x</div>
+      <div className="relative z-10 grid grid-cols-2 gap-4 pt-4 sm:gap-5 md:pt-0">
+        <PhotoCard
+          src="/images/hero-old-town.jpg"
+          className="aspect-[4/5] translate-y-8 rotate-[-1deg]"
+          label="Old Town"
+        />
+        <PhotoCard
+          src="/images/hero-cave-temple.jpg"
+          className="aspect-[4/5] rotate-[1deg]"
+          label="Caves"
+        />
+        <PhotoCard
+          src="/images/hero-kopitiam.jpg"
+          className="aspect-[4/5] translate-y-4 rotate-[1deg]"
+          label="Coffee Trail"
+        />
+        <PhotoCard
+          src="/images/hero-limestone-lake.jpg"
+          className="aspect-[4/5] -translate-y-4 rotate-[-1deg]"
+          label="Nature"
+        />
+        <div className="absolute -bottom-8 left-8 hidden h-24 w-24 rounded-full border border-dashed border-[#d95336]/60 md:block" />
+        <div className="absolute left-1/2 top-1/2 hidden text-4xl text-[#f26d4f] md:block">x</div>
       </div>
     </section>
   );
@@ -163,10 +180,10 @@ function PopularExperiences() {
       <div className="mx-auto max-w-7xl">
         <SectionTitle eyebrow="Discover" title="Popular Experiences" action="Explore all experiences" />
         <div className="no-scrollbar mt-8 flex snap-x gap-5 overflow-x-auto pb-4 md:grid md:grid-cols-4 md:overflow-visible">
-          {experiences.map(([title, tagA, tagB, body, imageClass]) => (
+          {experiences.map(([title, tagA, tagB, body, src]) => (
             <article key={title} className="min-w-[72%] snap-start md:min-w-0">
               <div className="relative aspect-[4/5] overflow-hidden rounded-[1.45rem] bg-[#e8dbcf]">
-                <Image src="/images/ipoh-editorial-collage.png" alt="" fill sizes="(min-width: 768px) 25vw, 72vw" className={`object-cover ${imageClass}`} />
+                <Image src={src} alt="" fill sizes="(min-width: 768px) 25vw, 72vw" className="object-cover" />
               </div>
               <h3 className="mt-4 text-xl font-bold">{title}</h3>
               <p className="text-sm font-semibold text-[#d95336]">{tagA} - {tagB}</p>
@@ -274,17 +291,17 @@ function StoriesSection() {
         <div className="mt-8 grid gap-7 lg:grid-cols-[1.15fr_0.85fr]">
           <article>
             <div className="relative aspect-[16/9] overflow-hidden rounded-[1.5rem]">
-              <Image src="/images/ipoh-editorial-collage.png" alt="" fill sizes="(min-width: 1024px) 55vw, 100vw" className="object-cover object-[34%_60%]" />
+              <Image src={stories[0][4]} alt="" fill sizes="(min-width: 1024px) 55vw, 100vw" className="object-cover" />
             </div>
             <p className="mt-5 text-xs font-black uppercase tracking-[0.18em] text-[#d95336]">{stories[0][0]}</p>
             <h3 className="mt-2 text-2xl font-bold">{stories[0][1]}</h3>
             <p className="mt-2 text-sm text-[#5c5049]">{stories[0][2]} - {stories[0][3]}</p>
           </article>
           <div className="space-y-5">
-            {stories.slice(1).map(([category, title, date, read], index) => (
+            {stories.slice(1).map(([category, title, date, read, src]) => (
               <article key={title} className="grid grid-cols-[120px_1fr] gap-4">
                 <div className="relative aspect-square overflow-hidden rounded-[1rem]">
-                  <Image src="/images/ipoh-editorial-collage.png" alt="" fill sizes="120px" className={`object-cover ${index === 0 ? "object-[14%_40%]" : index === 1 ? "object-[58%_42%]" : "object-[82%_52%]"}`} />
+                  <Image src={src} alt="" fill sizes="120px" className="object-cover" />
                 </div>
                 <div>
                   <p className="text-xs font-black uppercase tracking-[0.16em] text-[#d95336]">{category}</p>
@@ -317,8 +334,8 @@ function CommunitySection() {
           </div>
         </div>
         <div className="grid grid-cols-2 gap-4">
-          <PhotoCard className="aspect-[4/5]" imageClass="object-[82%_52%]" label="2 days" />
-          <PhotoCard className="mt-12 aspect-[4/5]" imageClass="object-[58%_42%]" label="650 pts" />
+          <PhotoCard src="/images/hero-kopitiam.jpg" className="aspect-[4/5]" label="2 days" />
+          <PhotoCard src="/images/hero-cave-temple.jpg" className="mt-12 aspect-[4/5]" label="650 pts" />
         </div>
       </div>
     </section>
@@ -329,7 +346,7 @@ function FinalCta() {
   return (
     <section className="px-5 py-14 md:px-8 md:py-20">
       <div className="relative mx-auto min-h-[420px] max-w-7xl overflow-hidden rounded-[2rem] bg-[#171311] p-8 text-white md:p-14">
-        <Image src="/images/ipoh-editorial-collage.png" alt="" fill sizes="100vw" className="object-cover object-[58%_42%] opacity-55" />
+        <Image src="/images/hero-limestone-lake.jpg" alt="" fill sizes="100vw" className="object-cover opacity-55" />
         <div className="absolute inset-0 bg-gradient-to-r from-[#171311]/78 via-[#171311]/35 to-transparent" />
         <div className="relative z-10 flex min-h-[320px] max-w-2xl flex-col justify-center">
           <h2 className="font-display text-5xl font-semibold leading-tight sm:text-7xl">Your Ipoh Story Starts Here.</h2>
@@ -379,10 +396,10 @@ function PlannerSelect({ label, value, options }: { label: string; value: string
   );
 }
 
-function PhotoCard({ className, imageClass, label }: { className: string; imageClass: string; label: string }) {
+function PhotoCard({ src, className, label }: { src: string; className: string; label: string }) {
   return (
     <div className={`relative overflow-hidden rounded-[1.65rem] bg-[#e8dbcf] shadow-[0_22px_60px_rgba(70,48,34,0.16)] ${className}`}>
-      <Image src="/images/ipoh-editorial-collage.png" alt="" fill sizes="(min-width: 768px) 40vw, 80vw" className={`object-cover ${imageClass}`} priority />
+      <Image src={src} alt="" fill sizes="(min-width: 768px) 40vw, 80vw" className="object-cover" priority />
       <span className="absolute bottom-4 left-4 rounded-full bg-white/85 px-4 py-2 text-xs font-black uppercase tracking-[0.16em] text-[#171311] backdrop-blur">{label}</span>
     </div>
   );
