@@ -1,0 +1,49 @@
+@import "tailwindcss";
+
+@theme {
+  /* De Ipoh palette — sampled from public/images/logo.png (purple brush ring, ink wordmark, red pin). */
+  --color-paper: #f7f0e8;
+  --color-ink: #171311;
+  --color-purple: #9066c4;
+  --color-lilac: #d9c9ee;
+  --color-red: #f26d4f;
+  --color-night: #171311;
+  --color-mist: #8a7a70;
+
+  --font-display: var(--font-fredoka), sans-serif;
+  --font-body: var(--font-instrument), sans-serif;
+  --font-mono: var(--font-jetbrains), monospace;
+}
+
+:root {
+  color-scheme: light;
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

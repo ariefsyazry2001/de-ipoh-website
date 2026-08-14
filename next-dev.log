@@ -1,0 +1,13 @@
+
+> de-ipoh@0.1.0 dev
+> next dev --port 3000
+
+▲ Next.js 16.3.1 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://10.201.155.224:3000
+✓ Ready in 733ms
+✓ Running next.config.ts took 44ms
+Creating turbopack project { dir: 'D:\\INVOKE\\De Ipoh', testMode: true }
+
+ GET / 200 in 508ms (next.js: 238ms, application-code: 270ms)
+[?25h

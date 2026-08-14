@@ -1,0 +1,118 @@
+{
+  "meta": {
+    "title": "De Ipoh - Terokai Ipoh Cara Anda",
+    "description": "Rancang perjalanan Ipoh yang diperibadikan mengikut minat, bajet dan gaya perjalanan anda. Temui pengalaman tempatan, cerita dan ganjaran."
+  },
+  "nav": {
+    "logo": "De Ipoh",
+    "howItWorks": "Rancang Trip",
+    "rewards": "Ganjaran",
+    "forBusinesses": "Cerita",
+    "cta": "Plan My Trip"
+  },
+  "hero": {
+    "eyebrow": "Ipoh, Perak",
+    "headline": "Terokai Ipoh Cara Anda.",
+    "sub": "Tempat tersembunyi, makanan yang diingati dan pengalaman tempatan yang dipilih mengikut minat, bajet dan gaya perjalanan anda.",
+    "primaryCta": "Plan My Trip",
+    "secondaryHint": "Temui Ipoh yang sukar dijumpai sendiri."
+  },
+  "problem": {
+    "eyebrow": "Penerokaan peribadi",
+    "heading": "Jangan hanya melawat Ipoh. Alami Ipoh anda sendiri.",
+    "body": "Pilih minat, bajet dan gaya perjalanan. Kami jadikan semuanya satu perjalanan Ipoh yang diperibadikan.",
+    "line2": "Halaman ini dibina sekitar Discover, Personalize, Explore dan Earn."
+  },
+  "howItWorks": {
+    "heading": "Daripada Ke Mana Nak Pergi? kepada Hari Ipoh Yang Sempurna.",
+    "steps": [
+      { "number": "01", "title": "Beritahu Tentang Trip Anda", "body": "Pilih tempoh, jenis pengembara dan bajet." },
+      { "number": "02", "title": "Pilih Apa Yang Anda Suka", "body": "Pilih makanan, alam semula jadi, budaya, membeli-belah atau minat lain." },
+      { "number": "03", "title": "Dapatkan Perjalanan Anda", "body": "Terima itinerari Ipoh yang diperibadikan mengikut minat anda." },
+      { "number": "04", "title": "Terokai Dan Kumpul", "body": "Lawati lokasi rakan kongsi, imbas QR dan kumpul mata." }
+    ]
+  },
+  "rewards": {
+    "heading": "Terokai Ipoh. Kumpul Ganjaran Sekali.",
+    "intro": "Lawati perniagaan tempatan yang mengambil bahagian, imbas QR dan kumpul mata semasa meneroka.",
+    "earnLabel": "Kumpul",
+    "earnBody": "Kumpul mata dengan melengkapkan pengalaman dan melawat lokasi rakan kongsi.",
+    "redeemLabel": "Tebus",
+    "redeemBody": "Gunakan mata untuk kopi, diskaun, pencuci mulut, baucar dan barangan tempatan.",
+    "priceLabel": "Rancang",
+    "priceBody": "Mulakan dengan perjalanan peribadi, kemudian temui lebih banyak tempat semasa berjalan."
+  },
+  "guide": {
+    "heading": "Laluan, bukan sekadar peta",
+    "body": "De Ipoh bukan senarai pin. Ia mencadangkan laluan melalui makanan, alam, budaya dan perniagaan tempatan.",
+    "features": [
+      { "title": "Jejak makanan", "body": "Pagi kopitiam, mi, pencuci mulut dan kafe." },
+      { "title": "Alam Ipoh", "body": "Gua, tasik, bukit dan pemandangan batu kapur." },
+      { "title": "Warisan lama", "body": "Bandar lama, mural, kuil dan sejarah bijih timah." }
+    ]
+  },
+  "businesses": {
+    "eyebrow": "Untuk peniaga",
+    "heading": "Bawa pengembara De Ipoh ke premis anda",
+    "body": "Sertai rangkaian pengalaman dan bantu pengembara menemui keistimewaan Ipoh.",
+    "termsLabel": "Apa yang terlibat",
+    "termsBody": "Perniagaan rakan kongsi boleh menawarkan ganjaran, imbasan QR dan pengalaman tempatan.",
+    "cta": "Become A Partner"
+  },
+  "faq": {
+    "heading": "Soalan lazim",
+    "items": [
+      { "q": "Apa itu De Ipoh?", "a": "Platform penemuan perjalanan Ipoh yang diperibadikan." },
+      { "q": "Boleh rancang ikut bajet?", "a": "Ya. Pembina perjalanan disusun mengikut tempoh, pengembara, bajet dan minat." },
+      { "q": "Bagaimana ganjaran berfungsi?", "a": "Pengembara melawat perniagaan rakan kongsi, mengimbas QR dan mengumpul mata." }
+    ]
+  },
+  "waitlistForm": {
+    "heading": "Plan My Trip",
+    "emailLabel": "E-mel",
+    "emailPlaceholder": "Masukkan e-mel yang kami boleh hubungi",
+    "consentLabel": "Saya bersetuju De Ipoh menghubungi saya tentang pelancaran aplikasi seperti dalam notis privasi.",
+    "submitLabel": "Plan My Trip",
+    "successMessage": "Anda sudah dalam senarai. Kami akan e-mel apabila De Ipoh sedia.",
+    "errorMessage": "Penghantaran gagal. Semak e-mel dan cuba lagi.",
+    "privacyLinkText": "Notis privasi"
+  },
+  "partnerForm": {
+    "heading": "Pertanyaan rakan kongsi",
+    "nameLabel": "Nama anda",
+    "businessLabel": "Nama perniagaan",
+    "contactLabel": "E-mel atau telefon",
+    "categoryLabel": "Kategori perniagaan",
+    "categoryOptions": ["Makanan & minuman", "Runcit", "Tarikan / warisan", "Penginapan", "Lain-lain"],
+    "consentLabel": "Saya bersetuju De Ipoh menghubungi saya tentang menjadi rakan kongsi seperti dalam notis privasi.",
+    "submitLabel": "Hantar pertanyaan",
+    "successMessage": "Pertanyaan dihantar. Kami akan menghubungi anda.",
+    "errorMessage": "Penghantaran gagal. Semak butiran dan cuba lagi.",
+    "privacyLinkText": "Notis privasi"
+  },
+  "footer": {
+    "tagline": "Perjalanan anda, dipilih untuk anda.",
+    "contactLabel": "Hubungi",
+    "contactValue": "hello@deipoh.my",
+    "socials": [
+      { "platform": "Instagram", "status": "akan datang" },
+      { "platform": "TikTok", "status": "akan datang" }
+    ],
+    "privacyLinkText": "Notis privasi",
+    "pdpaLine": "Kami hanya mengumpul apa yang diperlukan untuk menghubungi anda tentang De Ipoh. Lihat notis privasi untuk butiran.",
+    "langSwitchLabel": "English",
+    "langSwitchHref": "/en"
+  },
+  "privacy": {
+    "title": "Notis privasi",
+    "updated": "Kemas kini terakhir: 14 Ogos 2026",
+    "intro": "Notis ini merangkumi borang halaman De Ipoh dan pertanyaan awal rakan kongsi.",
+    "sections": [
+      { "heading": "Siapa kami", "body": "De Ipoh ialah platform penemuan perjalanan pra-pelancaran untuk Ipoh, Perak." },
+      { "heading": "Apa yang dikumpul", "body": "Kami mengumpul butiran yang anda hantar melalui borang senarai atau rakan kongsi." },
+      { "heading": "Kenapa kami kumpul", "body": "Kami guna maklumat ini untuk menghubungi anda tentang platform, pelancaran atau kerjasama." },
+      { "heading": "Hak anda", "body": "Anda boleh meminta akses, pembetulan atau pemadaman maklumat anda." }
+    ],
+    "backLinkText": "Kembali ke De Ipoh"
+  }
+}
