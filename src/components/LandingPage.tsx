@@ -75,35 +75,40 @@ const passes = [
   {
     name: "Explorer",
     price: "RM99",
+    childPrice: "RM49",
     label: "PLAN MY DAY",
     line: "Explore at your own pace.",
     body: "The DIY-but-better option for travellers who want D'Ipoh to shape the route while they handle transport and tickets.",
-    items: ["Curated day itinerary", "Digital map / guide", "RM20 F&B credit", "QR check-ins", "1x points"],
+    items: ["Curated day itinerary", "Digital map / guide", "RM20 adult F&B credit", "RM10 child F&B credit", "QR check-ins", "1x points"],
   },
   {
     name: "Quest+",
     price: "RM199",
+    childPrice: "RM99",
     label: "MOST POPULAR - TAKE ME AROUND",
     line: "Everything you need for the perfect day in Ipoh.",
     body: "For another RM100, travellers get shared transport, a local guide, an included experience and more food credit.",
-    items: ["Shared transport", "Shared local guide", "1 included experience", "RM50 F&B credit", "1.5x points", "1 itinerary swap"],
+    items: ["Shared transport", "Shared local guide", "1 included experience", "RM50 adult F&B credit", "RM15 child F&B credit", "1.5x points", "1 itinerary swap"],
     popular: true,
   },
   {
     name: "VIP Explorer",
     price: "RM399",
+    childPrice: "RM199",
     label: "LOOK AFTER ME",
     line: "The best of Ipoh, without the hassle.",
     body: "A premium small-group experience with a dedicated guide, flexible itinerary and stronger partner privileges.",
-    items: ["Premium transport", "Dedicated guide", "2 selected experiences", "RM80 F&B credit", "2x points", "Priority reservations"],
+    items: ["Premium transport", "Dedicated guide", "2 selected experiences", "RM80 adult F&B credit", "RM20 child F&B credit", "2x points", "Priority reservations"],
   },
 ];
 
 const comparison = [
-  ["Price", "RM99", "RM199", "RM399"],
+  ["Adult", "RM99/pax", "RM199/pax", "RM399/pax"],
+  ["Child (4-12)", "RM49/pax", "RM99/pax", "RM199/pax"],
   ["Transport", "Self-arranged", "Shared", "Premium small-group"],
   ["Guide", "Digital", "Shared local", "Dedicated"],
-  ["F&B Credit", "RM20", "RM50", "RM80"],
+  ["F&B Credit - Adult", "RM20", "RM50", "RM80"],
+  ["F&B Credit - Child", "RM10", "RM15", "RM20"],
   ["Experiences", "Pay-as-you-go", "1 included", "2 included"],
   ["Points Multiplier", "1x", "1.5x", "2x"],
   ["Itinerary Flexibility", "Fixed", "1 swap", "Flexible"],
@@ -121,7 +126,6 @@ export function LandingPage({ locale, copy }: { locale: Locale; copy: Copy }) {
       <Header homeHref={homeHref} langHref={langHref} langLabel={langLabel} />
       <main>
         <Hero />
-        <JourneyBuilder />
         <PopularExperiences />
         <InterestExplorer />
         <HowItWorks />
@@ -148,7 +152,7 @@ function Header({ homeHref, langHref, langLabel }: { homeHref: string; langHref:
         </a>
         <nav aria-label="Primary" className="hidden items-center gap-8 text-sm font-semibold lg:flex">
           <a href="#discover" className="hover:text-[#d95336]">Discover</a>
-          <a href="#plan" className="hover:text-[#d95336]">Plan Your Trip</a>
+          <a href="#how-it-works" className="hover:text-[#d95336]">Plan Your Trip</a>
           <a href="#experiences" className="hover:text-[#d95336]">Experiences</a>
           <a href="#passes" className="hover:text-[#d95336]">Passes</a>
           <a href="#rewards" className="hover:text-[#d95336]">Rewards</a>
@@ -158,7 +162,7 @@ function Header({ homeHref, langHref, langLabel }: { homeHref: string; langHref:
         <div className="flex items-center gap-3 text-sm font-semibold">
           <a href="#experiences" className="hidden hover:text-[#d95336] sm:inline">Search</a>
           <a href={langHref} className="hidden hover:text-[#d95336] md:inline">{langLabel}</a>
-          <a href="#plan" className="rounded-full bg-[#171311] px-5 py-2 text-white transition hover:bg-[#ff3038]">Plan My Trip</a>
+          <a href="#download" className="rounded-full bg-[#171311] px-5 py-2 text-white transition hover:bg-[#ff3038]">Plan My Trip</a>
           <a href="#menu" className="lg:hidden" aria-label="Open menu">Menu</a>
         </div>
       </div>
@@ -182,7 +186,7 @@ function Hero() {
           Hidden places, unforgettable food and local experiences curated around your interests, budget and travel style.
         </p>
         <div className="mt-9 flex flex-wrap items-center gap-4">
-          <a href="#plan" className="rounded-full bg-[#ff3038] px-7 py-3 text-base font-bold text-white shadow-[0_14px_35px_rgba(255,48,56,0.25)] transition hover:bg-[#171311]">
+          <a href="#download" className="rounded-full bg-[#ff3038] px-7 py-3 text-base font-bold text-white shadow-[0_14px_35px_rgba(255,48,56,0.25)] transition hover:bg-[#171311]">
             Plan My Trip
           </a>
           <a href="#experiences" className="rounded-full border border-[#171311]/30 px-7 py-3 text-base font-bold transition hover:border-[#f26d4f] hover:text-[#d95336]">
@@ -213,38 +217,6 @@ function Hero() {
         />
         <div className="absolute -bottom-8 left-8 hidden h-24 w-24 rounded-full border border-dashed border-[#d95336]/60 md:block" />
         <div className="absolute left-1/2 top-1/2 hidden text-4xl text-[#ff3038] md:block">x</div>
-      </div>
-    </section>
-  );
-}
-
-function JourneyBuilder() {
-  return (
-    <section id="plan" className="px-5 py-14 md:px-8 md:py-20">
-      <div className="mx-auto max-w-6xl rounded-[2rem] bg-white/70 p-5 shadow-[0_24px_80px_rgba(70,48,34,0.09)] ring-1 ring-[#171311]/10 md:p-10">
-        <div className="mx-auto max-w-3xl text-center">
-          <p className="text-xs font-bold uppercase tracking-[0.24em] text-[#d95336]">Personalized Journey Builder</p>
-          <h2 className="mt-4 font-display text-4xl font-semibold leading-tight sm:text-6xl">Your Journey Starts With You</h2>
-          <p className="mt-4 text-lg leading-8 text-[#5c5049]">No generic itineraries. Tell us what you enjoy and we will create an Ipoh experience designed around you.</p>
-        </div>
-        <div className="mt-10 grid gap-4 md:grid-cols-3">
-          <PlannerSelect label="Duration" value="2 Days" options={["Half Day", "1 Day", "2 Days", "3 Days", "4+ Days"]} />
-          <PlannerSelect label="Travellers" value="Friends" options={["Solo", "Couple", "Friends", "Family"]} />
-          <PlannerSelect label="Budget" value="RM200 - RM500" options={["Under RM200", "RM200 - RM500", "RM500 - RM1,000", "RM1,000+"]} />
-        </div>
-        <div className="mt-8">
-          <p className="mb-4 text-sm font-bold uppercase tracking-[0.16em]">What are you interested in?</p>
-          <div className="flex flex-wrap gap-3">
-            {["Food", "Nature", "Culture & History", "Shopping", "Cafes", "Arts & Creative", "Activities", "Relaxation"].map((interest) => (
-              <button key={interest} className="rounded-full border border-[#171311]/15 bg-[#f7f0e8] px-5 py-3 text-sm font-bold transition hover:border-[#f26d4f] hover:bg-[#fff6ef] hover:text-[#d95336]">
-                {interest}
-              </button>
-            ))}
-          </div>
-        </div>
-        <div className="mt-9 flex justify-center">
-          <a href="#experiences" className="rounded-full bg-[#171311] px-8 py-4 text-base font-bold text-white transition hover:bg-[#f26d4f]">Plan My Trip</a>
-        </div>
       </div>
     </section>
   );
@@ -392,7 +364,10 @@ function PassSection() {
                   <h3 className="font-display text-4xl font-semibold">{plan.name}</h3>
                   <p className={`mt-1 text-sm font-bold ${plan.popular ? "text-white/80" : "text-[#5c5049]"}`}>{plan.line}</p>
                 </div>
-                <p className="text-3xl font-black">{plan.price}</p>
+                <div className="text-right">
+                  <p className="text-3xl font-black">{plan.price}</p>
+                  <p className={`mt-1 text-xs font-black ${plan.popular ? "text-white/75" : "text-[#5c5049]"}`}>Child {plan.childPrice}</p>
+                </div>
               </div>
               <p className={`mt-5 leading-7 ${plan.popular ? "text-white/85" : "text-[#5c5049]"}`}>{plan.body}</p>
               <ul className="mt-6 space-y-3 text-sm font-bold">
@@ -459,7 +434,7 @@ function RewardsSection() {
               </div>
             ))}
           </div>
-          <a href="#plan" className="mt-6 inline-flex rounded-full bg-[#f26d4f] px-6 py-3 font-bold text-white">View Rewards</a>
+          <a href="#rewards" className="mt-6 inline-flex rounded-full bg-[#f26d4f] px-6 py-3 font-bold text-white">View Rewards</a>
         </div>
       </div>
       <div className="mx-auto mt-5 max-w-7xl rounded-[1.5rem] bg-white/70 p-6 ring-1 ring-[#171311]/10 md:flex md:items-center md:justify-between">
@@ -541,7 +516,7 @@ function FinalCta() {
         <div className="relative z-10 flex min-h-[320px] max-w-2xl flex-col justify-center">
           <h2 className="font-display text-5xl font-semibold leading-tight sm:text-7xl">Your Ipoh Story Starts Here.</h2>
           <p className="mt-5 text-lg leading-8 text-white/80">Tell us what you love and we will take care of the rest.</p>
-          <a href="#plan" className="mt-8 w-fit rounded-full bg-[#f26d4f] px-8 py-4 font-bold text-white">Plan My Trip</a>
+          <a href="#download" className="mt-8 w-fit rounded-full bg-[#f26d4f] px-8 py-4 font-bold text-white">Plan My Trip</a>
         </div>
       </div>
     </section>
@@ -577,17 +552,6 @@ function SiteFooter({ privacyHref }: { privacyHref: string }) {
   );
 }
 
-function PlannerSelect({ label, value, options }: { label: string; value: string; options: string[] }) {
-  return (
-    <label className="block rounded-[1.25rem] bg-[#f7f0e8] p-5 ring-1 ring-[#171311]/10">
-      <span className="text-xs font-black uppercase tracking-[0.2em] text-[#5c5049]">{label}</span>
-      <select defaultValue={value} className="mt-3 w-full bg-transparent text-2xl font-bold outline-none">
-        {options.map((option) => <option key={option}>{option}</option>)}
-      </select>
-    </label>
-  );
-}
-
 function PhotoCard({ src, className, label }: { src: string; className: string; label: string }) {
   return (
     <div className={`relative overflow-hidden rounded-[1.65rem] bg-[#e8dbcf] shadow-[0_22px_60px_rgba(70,48,34,0.16)] ${className}`}>
@@ -604,7 +568,7 @@ function SectionTitle({ eyebrow, title, action }: { eyebrow: string; title: stri
         <p className="text-xs font-bold uppercase tracking-[0.24em] text-[#d95336]">{eyebrow}</p>
         <h2 className="mt-3 font-display text-4xl font-semibold leading-tight sm:text-6xl">{title}</h2>
       </div>
-      <a href="#plan" className="w-fit rounded-full border border-[#171311]/25 px-6 py-3 text-sm font-bold transition hover:border-[#f26d4f] hover:text-[#d95336]">{action}</a>
+      <a href="#download" className="w-fit rounded-full border border-[#171311]/25 px-6 py-3 text-sm font-bold transition hover:border-[#f26d4f] hover:text-[#d95336]">{action}</a>
     </div>
   );
 }
