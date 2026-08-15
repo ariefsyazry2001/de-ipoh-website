@@ -279,6 +279,35 @@ function recommendationReason(place: Place, state: DemoState) {
   return hits.length ? `Recommended because you like ${hits.join(" + ")}.` : "Recommended as a flexible Ipoh highlight.";
 }
 
+const placeMetrics: Record<string, { popularity: string; visits: number }> = {
+  "kong-heng": { popularity: "Very Popular", visits: 12840 },
+  "concubine-lane": { popularity: "Trending", visits: 18620 },
+  "old-town": { popularity: "Very Popular", visits: 15490 },
+  "nam-heong": { popularity: "Local Favourite", visits: 11280 },
+  "kek-lok-tong": { popularity: "Popular", visits: 9780 },
+  "tasik-cermin": { popularity: "Trending", visits: 8240 },
+  railway: { popularity: "Popular", visits: 6920 },
+  "lost-world": { popularity: "Family Favourite", visits: 14350 },
+  "perak-cave": { popularity: "Popular", visits: 7310 },
+  "new-hollywood": { popularity: "Local Favourite", visits: 10540 },
+  "happy-8": { popularity: "Hidden Gem", visits: 4380 },
+  "gerbang-malam": { popularity: "Night Favourite", visits: 8960 },
+  "han-chin-pet-soo": { popularity: "Heritage Pick", visits: 5120 },
+  "local-snack-box": { popularity: "Reward Stop", visits: 3860 },
+};
+
+function metricsFor(place: Place) {
+  return placeMetrics[place.id] ?? { popularity: "Popular", visits: 2500 };
+}
+
+function starText(rating: number) {
+  return `${"★".repeat(Math.round(rating))}${"☆".repeat(5 - Math.round(rating))} ${rating.toFixed(1)}`;
+}
+
+function visitorText(visits: number) {
+  return `${visits.toLocaleString()} visits`;
+}
+
 function generatedItinerary(state: DemoState, ranked: Place[]) {
   const wanted = state.preferences.travelStyle === "Relaxed" ? 4 : state.preferences.travelStyle === "Packed" ? 6 : 5;
   const known = state.preferences.knownDestinations;
@@ -726,7 +755,8 @@ function PlaceDetail({ place, state, pass, alternatives, onBack, onMap, onScan, 
   const inItinerary = state.itinerary.includes(place.id);
   const points = Math.round(place.basePoints * (pass?.multiplier ?? 1));
   const swappable = inItinerary && state.itinerarySwapsRemaining !== 0;
-  return <div><div className="relative h-80" style={imageBackground(place.image)}><button className="absolute left-5 top-5 icon-btn" onClick={onBack}>back</button><button className="absolute right-5 top-5 icon-btn" onClick={onMap}>map</button></div><div className="-mt-8 rounded-t-[2rem] bg-white p-5"><div className="flex items-start justify-between gap-3"><div><h1 className="font-display text-4xl font-bold">{place.name}</h1><p className="mt-1 text-sm text-black/55">Star {place.rating} - {place.tags.slice(0, 3).join(" - ")}</p></div>{place.checkpoint && <span className="points">+{points}</span>}</div><div className="mt-4 rounded-2xl bg-[#fff5f3] p-4 text-sm font-semibold text-[#c7465f]">{recommendationReason(place, state)}</div><Section title="About"><p className="text-sm leading-6 text-black/65">{place.description}</p></Section><div className="grid grid-cols-2 gap-3 text-sm"><Info label="Distance" value={`${place.distanceKm} km`} /><Info label="Opening" value={place.openingHours} /><Info label="Budget" value={place.priceRange} /><Info label="Duration" value={`${place.durationMinutes} mins`} /></div>{place.partner && <div className="mt-4 rounded-2xl bg-[#171311] p-4 text-white"><p className="text-xs font-black uppercase text-white/55">{pass?.tier === "VIP" ? "VIP Partner Perk" : "Partner Perk"}</p><p className="mt-1 text-sm font-bold">{pass?.tier === "VIP" ? "Priority reservation plus exclusive reward." : pass?.tier === "QUEST_PLUS" ? "Quest+ members get 10% off selected items." : "Standard members unlock local privileges."}</p></div>}<div className="mt-5 grid grid-cols-2 gap-3"><button className="secondary-btn" onClick={onMap}>View Map</button><button className="primary-btn" onClick={() => onAdd(place.id)}>{inItinerary ? "In My Day" : "Add to My Day"}</button></div>{place.checkpoint && <button className="primary-btn mt-3" onClick={onScan}>Scan Checkpoint</button>}{swappable && <Section title="Replace this stop?"><div className="flex gap-3 overflow-x-auto no-scrollbar">{alternatives.slice(0, 4).map((item) => <button key={item.id} onClick={() => onSwap(place.id, item.id)} className="w-40 shrink-0 overflow-hidden rounded-2xl bg-white text-left shadow-sm ring-1 ring-black/5"><div className="h-28" style={imageBackground(item.image)} /><div className="p-3"><b className="text-sm">{item.name}</b><p className="text-[11px] text-black/45">Swap in</p></div></button>)}</div></Section>}<Section title="Nearby Places"><div className="flex gap-3 overflow-x-auto no-scrollbar">{alternatives.map((item) => <MiniPlace key={item.id} place={item} state={state} onClick={() => onPlace(item.id)} />)}</div></Section></div></div>;
+  const metrics = metricsFor(place);
+  return <div><div className="relative h-80" style={imageBackground(place.image)}><button className="absolute left-5 top-5 icon-btn" onClick={onBack}>back</button><button className="absolute right-5 top-5 icon-btn" onClick={onMap}>map</button></div><div className="relative z-10 -mt-4 rounded-t-[2rem] bg-white p-5 pt-8"><div className="flex items-start justify-between gap-3"><div className="min-w-0"><h1 className="font-display text-4xl font-bold leading-tight">{place.name}</h1><p className="mt-2 text-sm font-bold text-[#f2a900]">{starText(place.rating)}</p><p className="mt-1 text-xs font-semibold text-black/45">{metrics.popularity} - {visitorText(metrics.visits)} - {place.tags.slice(0, 3).join(" - ")}</p></div>{place.checkpoint && <span className="points">+{points}</span>}</div><div className="mt-4 grid grid-cols-3 gap-2 text-center"><Info label="Stars" value={place.rating.toFixed(1)} /><Info label="Popular" value={metrics.popularity} /><Info label="Visited" value={visitorText(metrics.visits)} /></div><div className="mt-4 rounded-2xl bg-[#fff5f3] p-4 text-sm font-semibold text-[#c7465f]">{recommendationReason(place, state)}</div><Section title="About"><p className="text-sm leading-6 text-black/65">{place.description}</p></Section><div className="grid grid-cols-2 gap-3 text-sm"><Info label="Distance" value={`${place.distanceKm} km`} /><Info label="Opening" value={place.openingHours} /><Info label="Budget" value={place.priceRange} /><Info label="Duration" value={`${place.durationMinutes} mins`} /></div>{place.partner && <div className="mt-4 rounded-2xl bg-[#171311] p-4 text-white"><p className="text-xs font-black uppercase text-white/55">{pass?.tier === "VIP" ? "VIP Partner Perk" : "Partner Perk"}</p><p className="mt-1 text-sm font-bold">{pass?.tier === "VIP" ? "Priority reservation plus exclusive reward." : pass?.tier === "QUEST_PLUS" ? "Quest+ members get 10% off selected items." : "Standard members unlock local privileges."}</p></div>}<div className="mt-5 grid grid-cols-2 gap-3"><button className="secondary-btn" onClick={onMap}>View Map</button><button className="primary-btn" onClick={() => onAdd(place.id)}>{inItinerary ? "In My Day" : "Add to My Day"}</button></div>{place.checkpoint && <button className="primary-btn mt-3" onClick={onScan}>Scan Checkpoint</button>}{swappable && <Section title="Replace this stop?"><div className="flex gap-3 overflow-x-auto no-scrollbar">{alternatives.slice(0, 4).map((item) => <button key={item.id} onClick={() => onSwap(place.id, item.id)} className="w-40 shrink-0 overflow-hidden rounded-2xl bg-white text-left shadow-sm ring-1 ring-black/5"><div className="h-28" style={imageBackground(item.image)} /><div className="p-3"><b className="text-sm">{item.name}</b><p className="text-[11px] text-black/45">Swap in</p></div></button>)}</div></Section>}<Section title="Nearby Places"><div className="flex gap-3 overflow-x-auto no-scrollbar">{alternatives.map((item) => <MiniPlace key={item.id} place={item} state={state} onClick={() => onPlace(item.id)} />)}</div></Section></div></div>;
 }
 
 function ItineraryList({ itinerary, compact }: { itinerary: Place[]; compact?: boolean }) {
@@ -752,11 +782,13 @@ function StoryModal({ name, onClose }: { name: string; onClose: () => void }) {
 }
 
 function LocationCard({ place, state, onClick }: { place: Place; state: DemoState; onClick: () => void }) {
-  return <button onClick={onClick} className="overflow-hidden rounded-2xl bg-white text-left shadow-sm ring-1 ring-black/5"><div className="h-36" style={imageBackground(place.image)} /><div className="p-3"><h3 className="font-bold leading-tight">{place.name}</h3><p className="mt-1 text-[11px] text-black/45">{place.tags.slice(0, 2).join(" - ")}</p><div className="mt-2 flex items-center justify-between"><span className="rounded-full bg-[#fff0f3] px-2 py-1 text-[10px] font-bold text-[#ff5f7e]">{Math.min(99, scorePlace(place, state))}% Match</span>{place.checkpoint && <span className="text-[10px] font-black">+{place.basePoints}</span>}</div></div></button>;
+  const metrics = metricsFor(place);
+  return <button onClick={onClick} className="overflow-hidden rounded-2xl bg-white text-left shadow-sm ring-1 ring-black/5"><div className="h-36" style={imageBackground(place.image)} /><div className="p-3"><h3 className="font-bold leading-tight">{place.name}</h3><p className="mt-1 text-[11px] font-bold text-[#f2a900]">{starText(place.rating)}</p><p className="mt-1 text-[11px] text-black/45">{metrics.popularity} - {visitorText(metrics.visits)}</p><div className="mt-2 flex items-center justify-between"><span className="rounded-full bg-[#fff0f3] px-2 py-1 text-[10px] font-bold text-[#ff5f7e]">{Math.min(99, scorePlace(place, state))}% Match</span>{place.checkpoint && <span className="text-[10px] font-black">+{place.basePoints}</span>}</div></div></button>;
 }
 
 function MiniPlace({ place, state, onClick }: { place: Place; state: DemoState; onClick: () => void }) {
-  return <button onClick={onClick} className="w-40 shrink-0 overflow-hidden rounded-2xl bg-white text-left shadow-sm ring-1 ring-black/5"><div className="h-32" style={imageBackground(place.image)} /><div className="p-3"><h3 className="truncate font-bold">{place.name}</h3><p className="text-[11px] text-black/45">{Math.min(99, scorePlace(place, state))}% match</p></div></button>;
+  const metrics = metricsFor(place);
+  return <button onClick={onClick} className="w-40 shrink-0 overflow-hidden rounded-2xl bg-white text-left shadow-sm ring-1 ring-black/5"><div className="h-32" style={imageBackground(place.image)} /><div className="p-3"><h3 className="truncate font-bold">{place.name}</h3><p className="text-[11px] font-bold text-[#f2a900]">{starText(place.rating)}</p><p className="truncate text-[11px] text-black/45">{metrics.popularity} - {Math.min(99, scorePlace(place, state))}% match</p></div></button>;
 }
 
 function MiniMapPlace({ place, onClick }: { place: Place; onClick: () => void }) {
