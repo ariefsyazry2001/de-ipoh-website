@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { FormEvent, useEffect, useMemo, useState } from "react";
 import {
   adminSections,
   alerts,
@@ -34,18 +34,45 @@ const pageTitles: Record<AdminPage, string> = {
   capacity: "Operational Capacity",
 };
 
+const adminAuthKey = "dipoh-admin-auth-v1";
+const demoEmail = "admin@deipoh.my";
+
 export function AdminDashboard({ page = "overview" }: { page?: AdminPage }) {
   const [range, setRange] = useState<DateRange>("Today");
   const [selected, setSelected] = useState("Quest+");
+  const [hydrated, setHydrated] = useState(false);
+  const [authenticated, setAuthenticated] = useState(false);
   const factor = rangeMultipliers[range];
   const scaledRevenue = useMemo(() => `RM${Math.round(12840 * factor).toLocaleString()}`, [factor]);
+
+  useEffect(() => {
+    window.queueMicrotask(() => {
+      setAuthenticated(localStorage.getItem(adminAuthKey) === "signed-in");
+      setHydrated(true);
+    });
+  }, []);
+
+  function signIn(email: string, password: string) {
+    if (email.trim().toLowerCase() !== demoEmail || !password.trim()) return false;
+    localStorage.setItem(adminAuthKey, "signed-in");
+    setAuthenticated(true);
+    return true;
+  }
+
+  function signOut() {
+    localStorage.removeItem(adminAuthKey);
+    setAuthenticated(false);
+  }
+
+  if (!hydrated) return <AdminLoading />;
+  if (!authenticated) return <AdminLogin onSubmit={signIn} />;
 
   return (
     <div className="min-h-screen bg-[#f7f0e8] text-[#171311]">
       <div className="grid min-h-screen lg:grid-cols-[280px_1fr]">
         <AdminSidebar active={page} />
         <div className="min-w-0">
-          <AdminHeader page={pageTitles[page]} range={range} setRange={setRange} />
+          <AdminHeader page={pageTitles[page]} range={range} setRange={setRange} onSignOut={signOut} />
           <main className="mx-auto max-w-[1500px] space-y-6 px-5 py-6 md:px-8">
             {page === "overview" && <Overview range={range} scaledRevenue={scaledRevenue} selected={selected} setSelected={setSelected} />}
             {page === "passes" && <PassesDetail selected={selected} setSelected={setSelected} />}
@@ -60,6 +87,69 @@ export function AdminDashboard({ page = "overview" }: { page?: AdminPage }) {
         </div>
       </div>
     </div>
+  );
+}
+
+function AdminLoading() {
+  return (
+    <div className="grid min-h-screen place-items-center bg-[#f7f0e8] px-5 text-[#171311]">
+      <div className="h-40 w-full max-w-md rounded-[2rem] bg-white/70 shadow-sm ring-1 ring-[#171311]/10" />
+    </div>
+  );
+}
+
+function AdminLogin({ onSubmit }: { onSubmit: (email: string, password: string) => boolean }) {
+  const [email, setEmail] = useState(demoEmail);
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setError("");
+    if (!onSubmit(email, password)) setError("Use the admin email and enter any password.");
+  }
+
+  return (
+    <main className="grid min-h-screen bg-[#f7f0e8] px-5 py-10 text-[#171311] md:px-8">
+      <div className="mx-auto grid w-full max-w-6xl overflow-hidden rounded-[2rem] bg-[#fffdfb] shadow-[0_28px_90px_rgba(70,48,34,0.14)] ring-1 ring-[#171311]/10 lg:grid-cols-[0.95fr_1.05fr]">
+        <section className="relative hidden min-h-[720px] overflow-hidden bg-[#171311] p-10 text-white lg:block">
+          <Image src="/images/hero-old-town.jpg" alt="" fill sizes="50vw" className="object-cover opacity-55" priority />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#171311] via-[#171311]/35 to-[#171311]/20" />
+          <div className="relative z-10 flex h-full flex-col justify-between">
+            <span className="flex h-16 w-28 items-center justify-center overflow-hidden rounded-xl bg-[#171717] ring-1 ring-white/20">
+              <Image src="/images/depoh logo.webp" alt="D'Ipoh" width={112} height={112} className="h-24 w-24 object-contain" priority />
+            </span>
+            <div>
+              <p className="text-xs font-black uppercase tracking-[0.24em] text-[#ffb39f]">Partner Operations</p>
+              <h1 className="mt-4 font-display text-6xl font-semibold leading-tight">Admin dashboard for D&apos;Ipoh.</h1>
+              <p className="mt-5 max-w-md text-lg leading-8 text-white/75">Track passes, quests, QR scans, rewards, partners and traveller insights from one private workspace.</p>
+            </div>
+          </div>
+        </section>
+        <section className="flex min-h-screen items-center px-5 py-10 sm:px-10 lg:min-h-[720px]">
+          <div className="w-full">
+            <span className="flex h-16 w-28 items-center justify-center overflow-hidden rounded-xl bg-[#171717] ring-1 ring-[#171311]/10 lg:hidden">
+              <Image src="/images/depoh logo.webp" alt="D'Ipoh" width={112} height={112} className="h-24 w-24 object-contain" priority />
+            </span>
+            <p className="mt-8 text-xs font-black uppercase tracking-[0.24em] text-[#d95336] lg:mt-0">Secure Access</p>
+            <h2 className="mt-3 font-display text-5xl font-semibold leading-tight">Welcome back.</h2>
+            <p className="mt-3 max-w-md leading-7 text-[#5c5049]">Sign in to manage D&apos;Ipoh operations, monitor package performance and review live traveller activity.</p>
+            <form onSubmit={handleSubmit} className="mt-8 max-w-md space-y-4">
+              <label className="block">
+                <span className="text-xs font-black uppercase tracking-[0.18em] text-[#8a7a70]">Email</span>
+                <input value={email} onChange={(event) => setEmail(event.target.value)} className="mt-2 w-full rounded-2xl border border-[#171311]/10 bg-[#f7f0e8] px-4 py-4 text-base font-bold outline-none transition focus:border-[#ff3038] focus:bg-white" />
+              </label>
+              <label className="block">
+                <span className="text-xs font-black uppercase tracking-[0.18em] text-[#8a7a70]">Password</span>
+                <input type="password" value={password} onChange={(event) => setPassword(event.target.value)} className="mt-2 w-full rounded-2xl border border-[#171311]/10 bg-[#f7f0e8] px-4 py-4 text-base font-bold outline-none transition focus:border-[#ff3038] focus:bg-white" />
+              </label>
+              {error && <p className="rounded-2xl bg-[#fff0f3] px-4 py-3 text-sm font-bold text-[#d95336]">{error}</p>}
+              <button className="w-full rounded-full bg-[#171311] px-6 py-4 text-base font-black text-white transition hover:bg-[#ff3038]">Sign In</button>
+            </form>
+          </div>
+        </section>
+      </div>
+    </main>
   );
 }
 
@@ -93,7 +183,7 @@ function AdminSidebar({ active }: { active: AdminPage }) {
   );
 }
 
-function AdminHeader({ page, range, setRange }: { page: string; range: DateRange; setRange: (range: DateRange) => void }) {
+function AdminHeader({ page, range, setRange, onSignOut }: { page: string; range: DateRange; setRange: (range: DateRange) => void; onSignOut: () => void }) {
   const ranges: DateRange[] = ["Today", "7 Days", "30 Days", "Custom"];
   return (
     <header className="border-b border-[#171311]/10 bg-[#f7f0e8]/90 px-5 py-5 backdrop-blur md:px-8">
@@ -109,6 +199,7 @@ function AdminHeader({ page, range, setRange }: { page: string; range: DateRange
             </button>
           ))}
           <span className="rounded-full bg-white px-4 py-2 text-sm font-bold text-[#5c5049] ring-1 ring-[#171311]/10">Admin A</span>
+          <button onClick={onSignOut} className="rounded-full bg-[#fff0f3] px-4 py-2 text-sm font-bold text-[#d95336] ring-1 ring-[#f26d4f]/20 transition hover:bg-[#ff3038] hover:text-white">Sign Out</button>
         </div>
       </div>
     </header>
