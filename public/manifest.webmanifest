@@ -1,0 +1,24 @@
+{
+  "name": "Ipoh Discovery",
+  "short_name": "Ipoh",
+  "description": "Discover Ipoh, scan QR codes, earn points, and redeem local rewards.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#fbf7f3",
+  "theme_color": "#ff5f7e",
+  "icons": [
+    {
+      "src": "/images/logo.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/images/logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

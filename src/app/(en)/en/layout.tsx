@@ -1,15 +1,13 @@
 import type { Metadata } from "next";
-import { getCopy } from "@/content";
+import { PwaRegister } from "@/components/PwaRegister";
 import { fontVariables } from "@/lib/fonts";
 import { SITE_URL } from "@/lib/site";
 import "../../globals.css";
 
-const copy = getCopy("en");
-
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: copy.meta.title,
-  description: copy.meta.description,
+  title: "Ipoh Discovery",
+  description: "A mobile-first Ipoh discovery and rewards PWA.",
   alternates: {
     canonical: "/en",
     languages: {
@@ -19,8 +17,8 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: copy.meta.title,
-    description: copy.meta.description,
+    title: "Ipoh Discovery",
+    description: "Discover Ipoh based on what you love, scan QR codes, earn points, and redeem local rewards.",
     url: "/en",
     locale: "en_MY",
     alternateLocale: "ms_MY",
@@ -28,12 +26,16 @@ export const metadata: Metadata = {
   icons: {
     icon: "/images/logo.png",
   },
+  manifest: "/manifest.webmanifest",
 };
 
 export default function EnRootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${fontVariables} h-full antialiased`}>
-      <body className="min-h-full flex flex-col bg-paper font-body text-ink">{children}</body>
+      <body className="flex min-h-full flex-col bg-paper font-body text-ink">
+        <PwaRegister />
+        {children}
+      </body>
     </html>
   );
 }
