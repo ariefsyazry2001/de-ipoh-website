@@ -26,6 +26,36 @@ const steps = [
   ["04", "Explore And Earn", "Visit partner locations, scan QR codes and collect points."],
 ];
 
+const appScreens = [
+  {
+    title: "Home",
+    image: "/images/website-1.png",
+    label: "Quest+ active",
+    headline: "Your Ipoh day at a glance",
+    body: "See today's itinerary, nearby picks, active pass status and points progress from one mobile-first dashboard.",
+  },
+  {
+    title: "Explore",
+    image: "/images/website-2.png",
+    label: "99% match",
+    headline: "Personalized places",
+    body: "Browse food, heritage, nature and culture recommendations ranked around traveller interests, time and budget.",
+  },
+  {
+    title: "Rewards",
+    image: "/images/website-3.png",
+    label: "650 pts",
+    headline: "Earn and redeem",
+    body: "Scan partner QR codes during the trip, collect points and redeem coffee, vouchers or local merchandise.",
+  },
+];
+
+const appFeatures = [
+  ["Personalized Itinerary", "Tell D'Ipoh your interests, trip duration, budget and travel style. The app turns that into a route."],
+  ["QR Checkpoints", "Travellers scan verified partner checkpoints to confirm visits and earn points."],
+  ["Passes And Rewards", "Explorer, Quest+ and VIP passes unlock different benefits, multipliers, credits and partner perks."],
+];
+
 const stories = [
   ["Food & Drink", "10 Ipoh Breakfast Spots Worth Waking Up Early For", "Aug 14, 2026", "6 min read", "/images/hero-kopitiam.jpg"],
   ["Heritage", "The Stories Behind Ipoh Old Town", "Aug 12, 2026", "4 min read", "/images/hero-old-town.jpg"],
@@ -95,6 +125,7 @@ export function LandingPage({ locale, copy }: { locale: Locale; copy: Copy }) {
         <PopularExperiences />
         <InterestExplorer />
         <HowItWorks />
+        <AppShowcase />
         <PassSection />
         <RewardsSection />
         <StoriesSection />
@@ -122,6 +153,7 @@ function Header({ homeHref, langHref, langLabel }: { homeHref: string; langHref:
           <a href="#passes" className="hover:text-[#d95336]">Passes</a>
           <a href="#rewards" className="hover:text-[#d95336]">Rewards</a>
           <a href="#stories" className="hover:text-[#d95336]">Stories</a>
+          <a href="#download" className="hover:text-[#d95336]">App</a>
         </nav>
         <div className="flex items-center gap-3 text-sm font-semibold">
           <a href="#experiences" className="hidden hover:text-[#d95336] sm:inline">Search</a>
@@ -282,6 +314,58 @@ function HowItWorks() {
         </div>
       </div>
     </section>
+  );
+}
+
+function AppShowcase() {
+  return (
+    <section id="download" className="px-5 py-14 md:px-8 md:py-20">
+      <div className="mx-auto max-w-7xl overflow-hidden rounded-[2rem] bg-[#171311] p-6 text-white md:p-12">
+        <div className="grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
+          <div>
+            <p className="text-xs font-bold uppercase tracking-[0.24em] text-[#ffb39f]">Mobile App</p>
+            <h2 className="mt-4 font-display text-4xl font-semibold leading-tight sm:text-6xl">Plan, Explore, Scan And Redeem In One App.</h2>
+            <p className="mt-5 max-w-2xl text-lg leading-8 text-white/75">
+              D&apos;Ipoh is the traveller companion for personalized Ipoh discovery. It helps visitors choose a pass, follow a curated route, discover recommended stops, scan QR checkpoints and redeem rewards from local partners.
+            </p>
+            <div className="mt-8 grid gap-4">
+              {appFeatures.map(([title, body]) => (
+                <article key={title} className="border-t border-white/15 pt-4">
+                  <h3 className="text-xl font-bold">{title}</h3>
+                  <p className="mt-2 leading-7 text-white/68">{body}</p>
+                </article>
+              ))}
+            </div>
+            <div className="mt-9 flex flex-wrap gap-3">
+              <a href={appHref} className="rounded-full bg-[#ff3038] px-6 py-3 text-sm font-black text-white shadow-[0_18px_38px_rgba(255,48,56,0.28)] transition hover:bg-white hover:text-[#171311]">
+                Try Web App
+              </a>
+              <a href="#download" aria-label="Google Play coming soon" className="rounded-full border border-white/25 px-6 py-3 text-sm font-black text-white/90 transition hover:border-white hover:bg-white hover:text-[#171311]">
+                Google Play Coming Soon
+              </a>
+              <a href="#download" aria-label="App Store coming soon" className="rounded-full border border-white/25 px-6 py-3 text-sm font-black text-white/90 transition hover:border-white hover:bg-white hover:text-[#171311]">
+                App Store Coming Soon
+              </a>
+            </div>
+          </div>
+          <div className="no-scrollbar flex gap-5 overflow-x-auto pb-3 lg:grid lg:grid-cols-3 lg:overflow-visible lg:pb-0">
+            {appScreens.map((screen, index) => (
+              <AppScreenshot key={screen.title} screen={screen} raised={index === 1} />
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function AppScreenshot({ screen, raised }: { screen: { title: string; image: string; label: string; headline: string; body: string }; raised?: boolean }) {
+  return (
+    <article className={`relative min-w-[62%] overflow-hidden rounded-[2rem] border-[10px] border-[#fffdfb] bg-[#fffdfb] shadow-[0_24px_70px_rgba(0,0,0,0.22)] sm:min-w-[14rem] lg:min-w-0 ${raised ? "lg:-translate-y-8" : ""}`}>
+      <div className="relative aspect-[9/19.5] overflow-hidden rounded-[1.35rem] bg-[#f4f0ed]">
+        <Image src={screen.image} alt={`${screen.title} app screenshot`} fill sizes="(min-width: 1024px) 18vw, 62vw" className="object-cover object-top" />
+      </div>
+    </article>
   );
 }
 
