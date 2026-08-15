@@ -1,6 +1,8 @@
 import Image from "next/image";
 import type { Copy, Locale } from "@/content/types";
 
+const appHref = "/app";
+
 const experiences = [
   ["Concubine Lane", "Heritage", "Food", "Old Town lanes, murals and snack stops.", "/images/Concubine%20Lane.jpg"],
   ["Kek Lok Tong", "Nature", "Relaxation", "Limestone gardens and cool cave air.", "/images/Kek%20Lok%20Tong.jpg"],
@@ -39,6 +41,45 @@ const footerGroups = [
   ["Company", "About Us", "Contact", "Privacy Policy", "Terms"],
 ];
 
+const passes = [
+  {
+    name: "Explorer",
+    price: "RM99",
+    label: "PLAN MY DAY",
+    line: "Explore at your own pace.",
+    body: "The DIY-but-better option for travellers who want D'Ipoh to shape the route while they handle transport and tickets.",
+    items: ["Curated day itinerary", "Digital map / guide", "RM20 F&B credit", "QR check-ins", "1x points"],
+  },
+  {
+    name: "Quest+",
+    price: "RM199",
+    label: "MOST POPULAR - TAKE ME AROUND",
+    line: "Everything you need for the perfect day in Ipoh.",
+    body: "For another RM100, travellers get shared transport, a local guide, an included experience and more food credit.",
+    items: ["Shared transport", "Shared local guide", "1 included experience", "RM50 F&B credit", "1.5x points", "1 itinerary swap"],
+    popular: true,
+  },
+  {
+    name: "VIP Explorer",
+    price: "RM399",
+    label: "LOOK AFTER ME",
+    line: "The best of Ipoh, without the hassle.",
+    body: "A premium small-group experience with a dedicated guide, flexible itinerary and stronger partner privileges.",
+    items: ["Premium transport", "Dedicated guide", "2 selected experiences", "RM80 F&B credit", "2x points", "Priority reservations"],
+  },
+];
+
+const comparison = [
+  ["Price", "RM99", "RM199", "RM399"],
+  ["Transport", "Self-arranged", "Shared", "Premium small-group"],
+  ["Guide", "Digital", "Shared local", "Dedicated"],
+  ["F&B Credit", "RM20", "RM50", "RM80"],
+  ["Experiences", "Pay-as-you-go", "1 included", "2 included"],
+  ["Points Multiplier", "1x", "1.5x", "2x"],
+  ["Itinerary Flexibility", "Fixed", "1 swap", "Flexible"],
+  ["Rewards", "Standard", "Enhanced", "Premium"],
+];
+
 export function LandingPage({ locale, copy }: { locale: Locale; copy: Copy }) {
   const homeHref = locale === "ms" ? "/" : "/en";
   const langHref = copy.footer.langSwitchHref;
@@ -54,6 +95,7 @@ export function LandingPage({ locale, copy }: { locale: Locale; copy: Copy }) {
         <PopularExperiences />
         <InterestExplorer />
         <HowItWorks />
+        <PassSection />
         <RewardsSection />
         <StoriesSection />
         <CommunitySection />
@@ -76,6 +118,7 @@ function Header({ homeHref, langHref, langLabel }: { homeHref: string; langHref:
           <a href="#discover" className="hover:text-[#d95336]">Discover</a>
           <a href="#plan" className="hover:text-[#d95336]">Plan Your Trip</a>
           <a href="#experiences" className="hover:text-[#d95336]">Experiences</a>
+          <a href="#passes" className="hover:text-[#d95336]">Passes</a>
           <a href="#rewards" className="hover:text-[#d95336]">Rewards</a>
           <a href="#stories" className="hover:text-[#d95336]">Stories</a>
         </nav>
@@ -235,6 +278,68 @@ function HowItWorks() {
               <p className="mt-3 leading-7 text-[#5c5049]">{body}</p>
             </article>
           ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function PassSection() {
+  return (
+    <section id="passes" className="px-5 py-14 md:px-8 md:py-20">
+      <div className="mx-auto max-w-7xl">
+        <SectionTitle eyebrow="Day Passes" title="Choose Your Way To Explore Ipoh" action="Choose your pass" />
+        <div className="mt-8 grid gap-5 lg:grid-cols-3">
+          {passes.map((plan) => (
+            <article
+              key={plan.name}
+              className={`rounded-[1.65rem] p-6 ring-1 ${
+                plan.popular
+                  ? "bg-[linear-gradient(135deg,#ff5f7e,#ff8f70)] text-white ring-[#ff5f7e] shadow-[0_24px_70px_rgba(242,109,79,0.24)]"
+                  : "bg-white/70 ring-[#171311]/10"
+              }`}
+            >
+              <p className={`text-xs font-black uppercase tracking-[0.2em] ${plan.popular ? "text-white/75" : "text-[#d95336]"}`}>
+                {plan.label}
+              </p>
+              <div className="mt-4 flex items-start justify-between gap-4">
+                <div>
+                  <h3 className="font-display text-4xl font-semibold">{plan.name}</h3>
+                  <p className={`mt-1 text-sm font-bold ${plan.popular ? "text-white/80" : "text-[#5c5049]"}`}>{plan.line}</p>
+                </div>
+                <p className="text-3xl font-black">{plan.price}</p>
+              </div>
+              <p className={`mt-5 leading-7 ${plan.popular ? "text-white/85" : "text-[#5c5049]"}`}>{plan.body}</p>
+              <ul className="mt-6 space-y-3 text-sm font-bold">
+                {plan.items.map((item) => (
+                  <li key={item} className={`rounded-full px-4 py-2 ${plan.popular ? "bg-white/14" : "bg-[#f7f0e8]"}`}>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </article>
+          ))}
+        </div>
+        <div className="mt-8 overflow-hidden rounded-[1.5rem] bg-white/70 ring-1 ring-[#171311]/10">
+          <div className="grid grid-cols-4 bg-[#171311] px-4 py-4 text-xs font-black uppercase tracking-[0.14em] text-white">
+            <span>Feature</span>
+            <span>Explorer</span>
+            <span>Quest+</span>
+            <span>VIP</span>
+          </div>
+          {comparison.map(([feature, explorer, quest, vip]) => (
+            <div key={feature} className="grid grid-cols-4 gap-2 border-t border-[#171311]/10 px-4 py-4 text-sm">
+              <b>{feature}</b>
+              <span>{explorer}</span>
+              <span className="font-bold text-[#d95336]">{quest}</span>
+              <span>{vip}</span>
+            </div>
+          ))}
+        </div>
+        <div className="mt-8 flex justify-center">
+          <a href={appHref} className="rounded-full bg-[#171311] px-8 py-4 text-base font-bold text-white transition hover:bg-[#f26d4f]">
+            Choose Your Pass
+          </a>
         </div>
       </div>
     </section>
