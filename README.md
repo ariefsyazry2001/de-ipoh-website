@@ -1,36 +1,67 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Ipoh Discovery PWA
 
-## Getting Started
+A local, mobile-first stakeholder MVP for discovering Ipoh, scanning demo QR tokens, earning points, and redeeming local rewards.
 
-First, run the development server:
+## Requirements
+
+- Node.js 20+
+- npm
+
+This implementation runs as a local Next.js PWA prototype. Demo state is seeded in TypeScript and persisted in browser `localStorage`, so no cloud services or database setup is required for the local flow.
+
+## Installation
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- Landing page: `http://localhost:3000`
+- Mobile PWA demo: `http://localhost:3000/app`
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Demo Credentials
 
-## Learn More
+```text
+Email: demo@ipoh.local
+Password: demo123
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Stakeholder Demo Flow
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Login with the demo account.
+2. Complete onboarding with Friends, Food, Coffee, Nature, and Culture.
+3. Review personalized Home recommendations.
+4. Open Kek Lok Tong.
+5. Tap Scan QR.
+6. Use the manual desktop token `IPOH-KLT-001`, or start camera access where supported.
+7. Earn points and view the updated wallet.
+8. Open Rewards.
+9. Select Ipoh Keychain.
+10. Redeem and show the generated redemption code.
+11. Return to Home and Profile to show stories, posts, visits, points, and redemptions.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Demo QR Tokens
 
-## Deploy on Vercel
+```text
+IPOH-KLT-001
+IPOH-CONCUBINE-001
+IPOH-PLATFORM-001
+IPOH-KONGHENG-001
+IPOH-INACTIVE-001
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Duplicate scans are blocked per browser user state. Clear site data or remove `ipoh-discovery-demo` from localStorage to reset the demo.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## PWA
+
+The app includes `public/manifest.webmanifest` and a basic offline shell service worker at `public/sw.js`.
+
+## Verification
+
+```bash
+npx tsc --noEmit
+npm run lint
+npm run build
+```

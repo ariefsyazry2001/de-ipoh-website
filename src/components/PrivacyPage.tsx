@@ -12,7 +12,9 @@ export function PrivacyPage({ locale, copy }: { locale: Locale; copy: Copy }) {
       <header className="border-b border-mist/30 px-6 py-4">
         <div className="mx-auto flex max-w-3xl items-center justify-between">
           <a href={homeHref} className="flex items-center">
-            <Image src="/images/logo.png" alt={copy.nav.logo} width={40} height={40} className="rounded-full" />
+            <span className="flex h-12 w-24 items-center justify-center overflow-hidden rounded-xl bg-[#171717] ring-1 ring-ink/10">
+              <Image src="/images/depoh logo.webp" alt={copy.nav.logo} width={96} height={96} className="h-20 w-20 object-contain" />
+            </span>
           </a>
           <a
             href={homeHref}

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="960" viewBox="0 0 720 960">
+  <rect width="720" height="960" rx="48" fill="#fff7f3"/>
+  <rect x="72" y="72" width="576" height="576" rx="32" fill="#171311"/>
+  <path fill="#fff" d="M120 120h144v144H120zM456 120h144v144H456zM120 456h144v144H120z"/>
+  <path fill="#fff" d="M312 120h96v48h-96zM312 216h48v96h-48zM408 264h144v48H408zM504 360h96v48h-96zM312 408h144v48H312zM360 504h48v96h-48zM456 504h144v48H456z"/>
+  <circle cx="192" cy="192" r="48" fill="#171311"/>
+  <circle cx="528" cy="192" r="48" fill="#171311"/>
+  <circle cx="192" cy="528" r="48" fill="#171311"/>
+  <text x="360" y="760" text-anchor="middle" font-family="Arial, sans-serif" font-size="44" font-weight="800" fill="#171311">Concubine Lane</text>
+  <text x="360" y="820" text-anchor="middle" font-family="Arial, sans-serif" font-size="34" font-weight="800" fill="#ff5f7e">IPOH-CONCUBINE-001</text>
+</svg>

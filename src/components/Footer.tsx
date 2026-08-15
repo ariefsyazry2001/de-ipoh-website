@@ -14,11 +14,11 @@ export function Footer({
       <div className="mx-auto max-w-5xl">
         <div className="flex flex-wrap items-start justify-between gap-8">
           <div className="flex items-center gap-3">
-            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-paper">
-              <Image src="/images/logo.png" alt="De Ipoh" width={36} height={36} className="rounded-full" />
+            <span className="flex h-14 w-24 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-[#171717] ring-1 ring-paper/10">
+              <Image src="/images/depoh logo.webp" alt="Dipoh" width={96} height={96} className="h-20 w-20 object-contain" />
             </span>
             <div>
-              <p className="font-display text-lg font-semibold text-paper">De Ipoh</p>
+              <p className="font-display text-lg font-semibold text-paper">Dipoh</p>
               <p className="mt-1 text-sm">{copy.tagline}</p>
             </div>
           </div>

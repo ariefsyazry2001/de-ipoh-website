@@ -1,12 +1,12 @@
 @import "tailwindcss";
 
 @theme {
-  /* De Ipoh palette — sampled from public/images/logo.png (purple brush ring, ink wordmark, red pin). */
+  /* Dipoh palette: black field, white script, red pin. */
   --color-paper: #f7f0e8;
   --color-ink: #171311;
   --color-purple: #9066c4;
   --color-lilac: #d9c9ee;
-  --color-red: #f26d4f;
+  --color-red: #ff3038;
   --color-night: #171311;
   --color-mist: #8a7a70;
 
@@ -20,7 +20,7 @@
 }
 
 body {
-  background: var(--color-paper);
+  background: #fbf7f3;
   color: var(--color-ink);
   font-family: var(--font-body);
 }
@@ -45,5 +45,159 @@ html {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+}
+
+.field {
+  width: 100%;
+  border-radius: 999px;
+  border: 1px solid rgb(0 0 0 / 0.08);
+  background: #ffffff;
+  padding: 0.9rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+  outline: none;
+  box-shadow: 0 12px 30px rgb(23 19 17 / 0.04);
+}
+
+.field:focus {
+  border-color: #ff5f7e;
+  box-shadow: 0 0 0 4px rgb(255 95 126 / 0.12);
+}
+
+.field-label {
+  display: block;
+  margin-bottom: 0.45rem;
+  font-size: 0.75rem;
+  font-weight: 900;
+  color: rgb(23 19 17 / 0.55);
+}
+
+.primary-btn,
+.secondary-btn {
+  display: grid;
+  min-height: 3.35rem;
+  width: 100%;
+  place-items: center;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  font-weight: 900;
+  transition: transform 180ms ease, box-shadow 180ms ease, opacity 180ms ease;
+}
+
+.primary-btn {
+  background: linear-gradient(135deg, #ff5f7e, #ff8f70);
+  color: white;
+  box-shadow: 0 18px 34px rgb(255 95 126 / 0.26);
+}
+
+.secondary-btn {
+  border: 1px solid rgb(0 0 0 / 0.08);
+  background: #ffffff;
+  color: #171311;
+}
+
+.primary-btn:active,
+.secondary-btn:active {
+  transform: translateY(1px) scale(0.99);
+}
+
+.icon-btn {
+  display: grid;
+  min-width: 2.75rem;
+  height: 2.75rem;
+  place-items: center;
+  border-radius: 999px;
+  border: 1px solid rgb(0 0 0 / 0.08);
+  background: rgb(255 255 255 / 0.9);
+  padding: 0 0.75rem;
+  font-size: 0.68rem;
+  font-weight: 900;
+  color: rgb(23 19 17 / 0.65);
+  box-shadow: 0 12px 28px rgb(23 19 17 / 0.08);
+}
+
+.search {
+  border-radius: 999px;
+  background: #f4f0ed;
+  padding: 0.95rem 1rem;
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: rgb(23 19 17 / 0.36);
+}
+
+.featured-card {
+  position: relative;
+  display: block;
+  height: 19rem;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 2rem;
+  box-shadow: 0 22px 48px rgb(23 19 17 / 0.12);
+}
+
+.image-fill {
+  position: absolute;
+  inset: 0;
+}
+
+.points {
+  flex-shrink: 0;
+  border-radius: 999px;
+  background: #d9ff36;
+  padding: 0.45rem 0.7rem;
+  font-size: 0.7rem;
+  font-weight: 1000;
+  color: #171311;
+}
+
+.chip-btn {
+  flex-shrink: 0;
+  border-radius: 999px;
+  border: 1px solid rgb(0 0 0 / 0.08);
+  background: #ffffff;
+  padding: 0.65rem 0.9rem;
+  font-size: 0.75rem;
+  font-weight: 900;
+  color: rgb(23 19 17 / 0.55);
+}
+
+.chip-btn.active {
+  border-color: rgb(255 95 126 / 0.25);
+  background: #fff0f3;
+  color: #c7465f;
+}
+
+.success-card {
+  overflow: hidden;
+  border-radius: 2rem;
+  background: radial-gradient(circle at 25% 20%, rgb(255 255 255 / 0.26), transparent 25%), linear-gradient(135deg, #ff5f7e, #ff8f70 52%, #171311);
+  padding: 2rem;
+  text-align: center;
+  color: white;
+  box-shadow: 0 24px 52px rgb(255 95 126 / 0.28);
+}
+
+.check {
+  display: grid;
+  width: 4rem;
+  height: 4rem;
+  margin: 0 auto 1.5rem;
+  place-items: center;
+  border-radius: 999px;
+  background: #d9ff36;
+  color: #171311;
+  font-weight: 1000;
+}
+
+.skeleton {
+  background: linear-gradient(90deg, #f4f0ed, #ffffff, #f4f0ed);
+  background-size: 200% 100%;
+  animation: shimmer 1.2s infinite linear;
+}
+
+@keyframes shimmer {
+  to {
+    background-position: -200% 0;
   }
 }

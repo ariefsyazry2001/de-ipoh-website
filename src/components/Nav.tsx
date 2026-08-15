@@ -16,7 +16,9 @@ export function Nav({
     <header className="sticky top-0 z-20 border-b border-mist/30 bg-paper/90 backdrop-blur">
       <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-3">
         <a href={homeHref} className="flex items-center">
-          <Image src="/images/logo.png" alt={copy.logo} width={44} height={44} className="rounded-full" priority />
+          <span className="flex h-12 w-24 items-center justify-center overflow-hidden rounded-xl bg-[#171717] ring-1 ring-ink/10">
+            <Image src="/images/depoh logo.webp" alt={copy.logo} width={96} height={96} className="h-20 w-20 object-contain" priority />
+          </span>
         </a>
 
         <nav aria-label="Section" className="hidden items-center gap-6 text-sm md:flex">
@@ -40,7 +42,7 @@ export function Nav({
           </a>
           <a
             href="#waitlist"
-            className="rounded-full bg-purple px-4 py-2 text-sm font-medium text-paper transition-colors hover:bg-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple"
+            className="rounded-full bg-[#171717] px-4 py-2 text-sm font-medium text-paper transition-colors hover:bg-red focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red"
           >
             {copy.cta}
           </a>
