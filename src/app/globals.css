@@ -1,12 +1,12 @@
 @import "tailwindcss";
 
 @theme {
-  /* De Ipoh palette — sampled from public/images/logo.png (purple brush ring, ink wordmark, red pin). */
+  /* Dipoh palette: black field, white script, red pin. */
   --color-paper: #f7f0e8;
   --color-ink: #171311;
   --color-purple: #9066c4;
   --color-lilac: #d9c9ee;
-  --color-red: #f26d4f;
+  --color-red: #ff3038;
   --color-night: #171311;
   --color-mist: #8a7a70;
 

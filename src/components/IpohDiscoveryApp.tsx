@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useMemo, useRef, useState } from "react";
 
 type View = "home" | "explore" | "map" | "passes" | "pass-review" | "quest" | "scan" | "rewards" | "profile" | "place" | "reward";
@@ -154,20 +155,20 @@ const passPackages: PassPackage[] = [
 ];
 
 const places: Place[] = [
-  place("kong-heng", "Kong Heng Square", "Boutique shops, art corners, indie food, and heritage textures in Old Town.", "Culture", ["Food", "Coffee", "Heritage", "Shopping", "Photography"], ["Coffee", "Street food", "Local favourites"], "RM100-RM200", 60, 4.5975, 101.0763, "10:00-19:00", true, "QUEST_PLUS", true, 60, 1.2, 4.7, true, true, "linear-gradient(135deg,#2f4858,#f6ae2d 46%,#f26419)"),
-  place("concubine-lane", "Concubine Lane", "A heritage lane packed with snacks, murals, souvenir stalls, and old-town bustle.", "Heritage", ["Food", "Culture", "Heritage", "Shopping", "Photography"], ["Dessert", "Street food", "Traditional"], "RM100-RM200", 50, 4.5977, 101.0773, "10:00-18:00", true, "STANDARD", true, 70, 1.0, 4.6, true, true, "linear-gradient(135deg,#f7b267,#f79d65 48%,#4a2d24)"),
-  place("old-town", "Ipoh Old Town", "Murals, white coffee, and colonial shopfronts in one walkable loop.", "Heritage", ["Food", "Coffee", "Culture", "Heritage", "Photography"], ["Coffee", "Local food", "Traditional"], "Under RM100", 90, 4.5964, 101.0779, "Best 08:00-17:00", true, "STANDARD", true, 50, 0.9, 4.7, true, true, "linear-gradient(135deg,#ef476f,#ffd166 50%,#073b4c)"),
-  place("nam-heong", "Nam Heong White Coffee", "Classic Ipoh white coffee, egg tarts, and old kopitiam energy.", "Coffee", ["Food", "Coffee", "Heritage", "Relaxation"], ["Coffee", "Traditional", "Local favourites"], "Under RM100", 45, 4.5968, 101.0792, "07:00-16:30", true, "SPONSORED", true, 50, 1.1, 4.5, true, true, "linear-gradient(135deg,#fff3d6,#b08968 52%,#3f2f2a)"),
-  place("kek-lok-tong", "Kek Lok Tong", "A limestone cave temple that opens into quiet gardens and karst views.", "Nature", ["Nature", "Culture", "Photography", "Relaxation", "Family"], [], "Under RM100", 80, 4.5592, 101.1295, "07:00-17:00", true, "STANDARD", true, 80, 6.8, 4.8, true, true, "linear-gradient(135deg,#7cc7b7,#f6d483 55%,#f07f72)"),
-  place("tasik-cermin", "Tasik Cermin", "Mirror lake scenery wrapped by limestone walls and soft nature views.", "Nature", ["Nature", "Photography", "Adventure", "Relaxation", "Family"], [], "RM100-RM200", 75, 4.5603, 101.1193, "09:00-18:00", true, "QUEST_PLUS", true, 70, 7.1, 4.7, true, true, "linear-gradient(135deg,#75b8c8,#d9ed92 52%,#44633f)"),
-  place("railway", "Ipoh Railway Station", "Iconic colonial architecture and an easy heritage photo stop.", "Heritage", ["Heritage", "Culture", "Photography"], [], "Under RM100", 30, 4.5971, 101.0737, "Open daily", false, "STANDARD", false, 0, 1.5, 4.4, true, true, "linear-gradient(135deg,#e9ecef,#adb5bd 52%,#343a40)"),
-  place("lost-world", "Lost World of Tambun", "Theme park, hot springs, and family attractions by the cliffs.", "Adventure", ["Adventure", "Family", "Nature", "Relaxation"], [], "RM200-RM400", 240, 4.6267, 101.1549, "11:00-23:00", true, "VIP", false, 0, 11.4, 4.7, true, false, "linear-gradient(135deg,#118ab2,#06d6a0 48%,#ffd166)"),
-  place("perak-cave", "Perak Cave Temple", "Temple murals, cave halls, and a short climb to a city viewpoint.", "Culture", ["Culture", "Heritage", "Nature", "Photography"], [], "Under RM100", 60, 4.6396, 101.0987, "08:00-17:00", false, "STANDARD", false, 0, 7.6, 4.6, true, true, "linear-gradient(135deg,#bc6c25,#dda15e 48%,#283618)"),
-  place("new-hollywood", "New Hollywood", "A beloved local food court for breakfast and hawker classics.", "Food", ["Food", "Coffee", "Family"], ["Local food", "Street food", "Local favourites"], "Under RM100", 45, 4.6169, 101.1182, "07:00-14:00", true, "STANDARD", false, 0, 4.8, 4.5, true, false, "linear-gradient(135deg,#ffcad4,#f4a261 52%,#6d2e46)"),
-  place("happy-8", "Happy 8 Retreat Cafe", "Slow cafe moments with wood textures, coffee, and a boutique local feel.", "Coffee", ["Coffee", "Relaxation", "Photography", "Couple"], ["Coffee", "Dessert", "Fine dining"], "RM100-RM200", 55, 4.5972, 101.0797, "09:00-22:00", true, "VIP", false, 0, 1.3, 4.4, false, true, "linear-gradient(135deg,#cdb4db,#bde0fe 52%,#60463b)"),
-  place("gerbang-malam", "Gerbang Malam Market", "Night shopping, local snacks, bargain finds, and souvenir energy.", "Shopping", ["Shopping", "Food", "Adventure"], ["Street food", "Local favourites"], "Under RM100", 70, 4.5962, 101.0858, "18:00-00:00", true, "STANDARD", false, 0, 1.9, 4.3, true, false, "linear-gradient(135deg,#171311,#9066c4 52%,#ff8f70)"),
-  place("han-chin-pet-soo", "Han Chin Pet Soo", "A compact cultural museum revealing stories of Ipoh's tin-mining past.", "Heritage", ["Heritage", "Culture", "Photography"], [], "RM100-RM200", 70, 4.5961, 101.0772, "09:30-15:30", true, "QUEST_PLUS", true, 60, 1.0, 4.6, true, true, "linear-gradient(135deg,#f2cc8f,#9066c4 52%,#3d405b)"),
-  place("local-snack-box", "Old Town Snack Box", "Local snack bundles and edible souvenirs for the final reward stop.", "Shopping", ["Shopping", "Food", "Family"], ["Dessert", "Traditional", "Local favourites"], "Under RM100", 35, 4.5969, 101.0786, "09:00-20:00", true, "SPONSORED", true, 40, 1.1, 4.4, true, false, "linear-gradient(135deg,#ffd166,#ffafcc 52%,#f26d4f)"),
+  place("kong-heng", "Kong Heng Square", "Boutique shops, art corners, indie food, and heritage textures in Old Town.", "Culture", ["Food", "Coffee", "Heritage", "Shopping", "Photography"], ["Coffee", "Street food", "Local favourites"], "RM100-RM200", 60, 4.5975, 101.0763, "10:00-19:00", true, "QUEST_PLUS", true, 60, 1.2, 4.7, true, true, "/images/Kong Heng Square.jpg"),
+  place("concubine-lane", "Concubine Lane", "A heritage lane packed with snacks, murals, souvenir stalls, and old-town bustle.", "Heritage", ["Food", "Culture", "Heritage", "Shopping", "Photography"], ["Dessert", "Street food", "Traditional"], "RM100-RM200", 50, 4.5977, 101.0773, "10:00-18:00", true, "STANDARD", true, 70, 1.0, 4.6, true, true, "/images/Concubine Lane.jpg"),
+  place("old-town", "Ipoh Old Town", "Murals, white coffee, and colonial shopfronts in one walkable loop.", "Heritage", ["Food", "Coffee", "Culture", "Heritage", "Photography"], ["Coffee", "Local food", "Traditional"], "Under RM100", 90, 4.5964, 101.0779, "Best 08:00-17:00", true, "STANDARD", true, 50, 0.9, 4.7, true, true, "/images/ipoh old time.jpg"),
+  place("nam-heong", "Nam Heong White Coffee", "Classic Ipoh white coffee, egg tarts, and old kopitiam energy.", "Coffee", ["Food", "Coffee", "Heritage", "Relaxation"], ["Coffee", "Traditional", "Local favourites"], "Under RM100", 45, 4.5968, 101.0792, "07:00-16:30", true, "SPONSORED", true, 50, 1.1, 4.5, true, true, "/images/nam heong.jpg"),
+  place("kek-lok-tong", "Kek Lok Tong", "A limestone cave temple that opens into quiet gardens and karst views.", "Nature", ["Nature", "Culture", "Photography", "Relaxation", "Family"], [], "Under RM100", 80, 4.5592, 101.1295, "07:00-17:00", true, "STANDARD", true, 80, 6.8, 4.8, true, true, "/images/Kek Lok Tong.jpg"),
+  place("tasik-cermin", "Tasik Cermin", "Mirror lake scenery wrapped by limestone walls and soft nature views.", "Nature", ["Nature", "Photography", "Adventure", "Relaxation", "Family"], [], "RM100-RM200", 75, 4.5603, 101.1193, "09:00-18:00", true, "QUEST_PLUS", true, 70, 7.1, 4.7, true, true, "/images/hero-limestone-lake.jpg"),
+  place("railway", "Ipoh Railway Station", "Iconic colonial architecture and an easy heritage photo stop.", "Heritage", ["Heritage", "Culture", "Photography"], [], "Under RM100", 30, 4.5971, 101.0737, "Open daily", false, "STANDARD", false, 0, 1.5, 4.4, true, true, "/images/hero-old-town.jpg"),
+  place("lost-world", "Lost World of Tambun", "Theme park, hot springs, and family attractions by the cliffs.", "Adventure", ["Adventure", "Family", "Nature", "Relaxation"], [], "RM200-RM400", 240, 4.6267, 101.1549, "11:00-23:00", true, "VIP", false, 0, 11.4, 4.7, true, false, "/images/Lost World.jpg"),
+  place("perak-cave", "Perak Cave Temple", "Temple murals, cave halls, and a short climb to a city viewpoint.", "Culture", ["Culture", "Heritage", "Nature", "Photography"], [], "Under RM100", 60, 4.6396, 101.0987, "08:00-17:00", false, "STANDARD", false, 0, 7.6, 4.6, true, true, "/images/hero-cave-temple.jpg"),
+  place("new-hollywood", "New Hollywood", "A beloved local food court for breakfast and hawker classics.", "Food", ["Food", "Coffee", "Family"], ["Local food", "Street food", "Local favourites"], "Under RM100", 45, 4.6169, 101.1182, "07:00-14:00", true, "STANDARD", false, 0, 4.8, 4.5, true, false, "/images/hero-kopitiam-2.png"),
+  place("happy-8", "Happy 8 Retreat Cafe", "Slow cafe moments with wood textures, coffee, and a boutique local feel.", "Coffee", ["Coffee", "Relaxation", "Photography", "Couple"], ["Coffee", "Dessert", "Fine dining"], "RM100-RM200", 55, 4.5972, 101.0797, "09:00-22:00", true, "VIP", false, 0, 1.3, 4.4, false, true, "/images/Happy 8 Retreat.jpg"),
+  place("gerbang-malam", "Gerbang Malam Market", "Night shopping, local snacks, bargain finds, and souvenir energy.", "Shopping", ["Shopping", "Food", "Adventure"], ["Street food", "Local favourites"], "Under RM100", 70, 4.5962, 101.0858, "18:00-00:00", true, "STANDARD", false, 0, 1.9, 4.3, true, false, "/images/img3.jpg"),
+  place("han-chin-pet-soo", "Han Chin Pet Soo", "A compact cultural museum revealing stories of Ipoh's tin-mining past.", "Heritage", ["Heritage", "Culture", "Photography"], [], "RM100-RM200", 70, 4.5961, 101.0772, "09:30-15:30", true, "QUEST_PLUS", true, 60, 1.0, 4.6, true, true, "/images/img1.jpg"),
+  place("local-snack-box", "Old Town Snack Box", "Local snack bundles and edible souvenirs for the final reward stop.", "Shopping", ["Shopping", "Food", "Family"], ["Dessert", "Traditional", "Local favourites"], "Under RM100", 35, 4.5969, 101.0786, "09:00-20:00", true, "SPONSORED", true, 40, 1.1, 4.4, true, false, "/images/img5.jpg"),
 ];
 
 const checkpoints: Checkpoint[] = [
@@ -179,12 +180,20 @@ const checkpoints: Checkpoint[] = [
 ];
 
 const rewards: Reward[] = [
-  { id: "white-coffee", name: "Ipoh White Coffee", points: 700, merchant: "Nam Heong White Coffee", category: "Drinks", availability: "18 left", image: "linear-gradient(135deg,#fff3d6,#b08968)" },
-  { id: "keychain", name: "D'Ipoh Keychain", points: 500, merchant: "Old Town Snack Box", category: "Souvenir", availability: "12 left", image: "linear-gradient(135deg,#bde0fe,#ffafcc)" },
-  { id: "magnet", name: "Heritage Fridge Magnet", points: 350, merchant: "Kong Heng Square", category: "Souvenir", availability: "25 left", image: "linear-gradient(135deg,#ffd6e0,#ff7a90)" },
-  { id: "tote", name: "D'Ipoh Tote Bag", points: 1000, merchant: "Concubine Lane Merchant", category: "Souvenir", availability: "8 left", image: "linear-gradient(135deg,#d9c9ee,#9066c4)" },
-  { id: "voucher", name: "RM10 Food Voucher", points: 600, merchant: "Partner food stalls", category: "Food", availability: "20 left", image: "linear-gradient(135deg,#caffbf,#9bf6ff)" },
-  { id: "snack-box", name: "Local Snack Box", points: 850, merchant: "Old Town Snack Box", category: "Food", availability: "10 left", image: "linear-gradient(135deg,#ffd166,#f26d4f)" },
+  { id: "white-coffee", name: "Ipoh White Coffee", points: 700, merchant: "Nam Heong White Coffee", category: "Drinks", availability: "18 left", image: "/images/reward-ipoh-coffee.jpg" },
+  { id: "keychain", name: "D'Ipoh Keychain", points: 500, merchant: "Old Town Snack Box", category: "Souvenir", availability: "12 left", image: "/images/ipoh-editorial-collage.png" },
+  { id: "magnet", name: "Heritage Fridge Magnet", points: 350, merchant: "Kong Heng Square", category: "Souvenir", availability: "25 left", image: "/images/reward-magenet.jpg" },
+  { id: "tote", name: "D'Ipoh Tote Bag", points: 1000, merchant: "Concubine Lane Merchant", category: "Souvenir", availability: "8 left", image: "/images/reward-tote.jpg" },
+  { id: "voucher", name: "RM10 Food Voucher", points: 600, merchant: "Partner food stalls", category: "Food", availability: "20 left", image: "/images/hero-kopitiam.jpg" },
+  { id: "snack-box", name: "Local Snack Box", points: 850, merchant: "Old Town Snack Box", category: "Food", availability: "10 left", image: "/images/hero-kopitiam-2.png" },
+];
+
+const storyItems = [
+  { name: "Your Story", label: "My Day", image: "/images/story 1.jpg" },
+  { name: "Aina", label: "Kek Lok Tong", image: "/images/story 2.jpg" },
+  { name: "Sarah", label: "Concubine Lane", image: "/images/story 3.jpg" },
+  { name: "Amir", label: "White Coffee", image: "/images/story 4.jpg" },
+  { name: "Jason", label: "Tasik Cermin", image: "/images/story 5.jpg" },
 ];
 
 const experiences = ["Ipoh Heritage Walk", "White Coffee Tasting", "Local Food Experience", "Traditional Culture Workshop", "Nature Discovery"];
@@ -215,8 +224,38 @@ const defaultState: DemoState = {
   redemptions: [],
 };
 
+const returningTravellerState: DemoState = {
+  ...defaultState,
+  onboarded: true,
+  currentPass: "QUEST_PLUS",
+  fbCreditRemaining: 32.5,
+  experiencesRemaining: 1,
+  itinerarySwapsRemaining: 1,
+  preferences: {
+    interests: ["Food", "Coffee", "Heritage", "Nature"],
+    foodPreferences: ["Local food", "Coffee", "Traditional"],
+    travellerType: "Couple",
+    travelStyle: "Balanced",
+    itineraryPreference: "No, plan my day for me",
+    knownDestinations: ["kong-heng"],
+    budget: "RM100-RM200",
+    duration: "1 day",
+  },
+};
+
 function place(id: string, name: string, description: string, category: string, tags: string[], foodTags: string[], priceRange: Budget, durationMinutes: number, latitude: number, longitude: number, openingHours: string, partner: boolean, partnerLevel: Place["partnerLevel"], checkpoint: boolean, basePoints: number, distanceKm: number, rating: number, familyFriendly: boolean, coupleFriendly: boolean, image: string): Place {
   return { id, name, description, image, category, tags, foodTags, priceRange, durationMinutes, latitude, longitude, openingHours, partner, partnerLevel, checkpoint, basePoints, distanceKm, rating, familyFriendly, coupleFriendly };
+}
+
+function imageBackground(image: string, overlay = true) {
+  if (image.startsWith("/")) {
+    return {
+      backgroundImage: `${overlay ? "linear-gradient(180deg,rgba(23,19,17,0.02),rgba(23,19,17,0.24)), " : ""}url("${image}")`,
+      backgroundPosition: "center",
+      backgroundSize: "cover",
+    };
+  }
+  return { background: image };
 }
 
 function passByTier(tier: PassTier) {
@@ -372,7 +411,11 @@ export function IpohDiscoveryApp() {
   }
 
   if (!hydrated) return <Shell><div className="p-5"><div className="skeleton h-96 rounded-[2rem]" /></div></Shell>;
-  if (!state.onboarded) return <PersonalizationFlow onComplete={completeOnboarding} />;
+  if (!state.onboarded) return <PersonalizationFlow onComplete={completeOnboarding} onMockLogin={() => {
+    setState(returningTravellerState);
+    setView("home");
+    notify("Welcome back, Jessica.");
+  }} />;
 
   return (
     <Shell>
@@ -400,7 +443,8 @@ function Shell({ children }: { children: React.ReactNode }) {
   return <div className="min-h-screen bg-[#fbf7f3] text-[#171311]"><div className="mx-auto min-h-screen w-full max-w-md bg-[#fffdfb] shadow-[0_0_60px_rgba(23,19,17,0.10)] md:my-6 md:min-h-[860px] md:overflow-hidden md:rounded-[2rem] md:border md:border-black/5">{children}</div></div>;
 }
 
-function PersonalizationFlow({ onComplete }: { onComplete: (preferences: DemoState["preferences"]) => void }) {
+function PersonalizationFlow({ onComplete, onMockLogin }: { onComplete: (preferences: DemoState["preferences"]) => void; onMockLogin: () => void }) {
+  const [mode, setMode] = useState<"welcome" | "login">("welcome");
   const [step, setStep] = useState(0);
   const [prefs, setPrefs] = useState<DemoState["preferences"]>({
     interests: ["Food", "Coffee", "Heritage"],
@@ -420,22 +464,52 @@ function PersonalizationFlow({ onComplete }: { onComplete: (preferences: DemoSta
     setPrefs((current) => ({ ...current, [key]: current[key].includes(value) ? current[key].filter((item) => item !== value) : [...current[key], value] }));
   }
 
+  if (mode === "login") return <MockLoginScreen onBack={() => setMode("welcome")} onSuccess={onMockLogin} onPlan={() => setMode("welcome")} />;
+
   if (step === 0) {
     return (
       <Shell>
-        <div className="flex min-h-screen flex-col justify-between p-6 md:min-h-[860px]">
-          <div className="pt-10">
-            <div className="mb-8 h-80 rounded-[2rem] bg-[linear-gradient(135deg,#ff5f7e,#ff8f70_48%,#ffd166)] p-5 text-white shadow-2xl shadow-[#ff5f7e]/30">
-              <div className="flex h-full flex-col justify-between">
-                <span className="w-max rounded-full bg-white/20 px-3 py-1 text-xs font-bold">D&apos;Ipoh Day Pass</span>
-                <div>
-                  <h1 className="font-display text-5xl font-bold leading-none">Welcome to D&apos;Ipoh</h1>
-                  <p className="mt-3 text-sm text-white/90">Let&apos;s build your perfect day in Ipoh.</p>
-                </div>
-              </div>
+        <div className="flex min-h-screen flex-col p-6 md:min-h-[860px]">
+          <div className="pt-5">
+            <span className="mx-auto flex h-14 w-28 items-center justify-center overflow-hidden rounded-xl bg-[#171717] ring-1 ring-black/5">
+              <Image src="/images/depoh logo.webp" alt="Dipoh" width={128} height={128} className="h-24 w-24 object-contain" priority />
+            </span>
+          </div>
+          <div className="mt-6">
+            <div className="relative h-72 overflow-hidden rounded-[1.5rem] bg-[#e8dbcf] shadow-xl shadow-[#171311]/10">
+              <Image src="/images/hero-old-town.jpg" alt="Ipoh Old Town heritage street scene" fill sizes="(max-width: 430px) 90vw, 380px" className="object-cover" priority />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#171311]/42 via-transparent to-transparent" />
+              <span className="absolute bottom-4 left-4 rounded-full bg-white/90 px-4 py-2 text-xs font-black uppercase tracking-[0.16em] text-[#171311] backdrop-blur">
+                Ipoh, Perak
+              </span>
             </div>
           </div>
-          <button className="primary-btn" onClick={() => setStep(1)}>Start Planning</button>
+          <section className="mt-7">
+            <h1 className="font-display text-5xl font-bold leading-[0.95] text-[#171311]">
+              Discover Ipoh,
+              <span className="block text-[#ff3038]">your way.</span>
+            </h1>
+            <p className="mt-4 text-base leading-7 text-black/62">
+              Tell us what you love and we&apos;ll create an Ipoh day made for you.
+            </p>
+            <div className="mt-5 flex flex-wrap gap-2">
+              {["Food", "Coffee", "Culture", "Nature", "Hidden Gems"].map((item) => (
+                <span key={item} className="rounded-full bg-[#fff0f3] px-3 py-2 text-xs font-black text-[#c7465f] ring-1 ring-[#ff3038]/10">
+                  {item}
+                </span>
+              ))}
+            </div>
+          </section>
+          <div className="pt-8">
+            <button className="primary-btn" onClick={() => setStep(1)}>Plan My Ipoh Day &rarr;</button>
+            <p className="mt-3 text-center text-xs font-bold text-black/40">Takes about 1 minute</p>
+            <p className="mt-5 text-center text-sm font-semibold text-black/50">
+              Already have an account?{" "}
+              <button className="font-black text-[#ff3038] underline decoration-[#ff3038]/30 underline-offset-4" onClick={() => setMode("login")}>
+                Sign in
+              </button>
+            </p>
+          </div>
         </div>
       </Shell>
     );
@@ -464,6 +538,93 @@ function PersonalizationFlow({ onComplete }: { onComplete: (preferences: DemoSta
   );
 }
 
+function MockLoginScreen({ onBack, onSuccess, onPlan }: { onBack: () => void; onSuccess: () => void; onPlan: () => void }) {
+  const [email, setEmail] = useState("jessica@dipoh.local");
+  const [password, setPassword] = useState("demo123");
+  const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState("");
+  const [resetOpen, setResetOpen] = useState(false);
+  const [resetSent, setResetSent] = useState(false);
+
+  function signIn() {
+    if (!email.includes("@") || password.length < 4) {
+      setError("Use any valid-looking email and a password with at least 4 characters.");
+      return;
+    }
+    onSuccess();
+  }
+
+  return (
+    <Shell>
+      <div className="flex min-h-screen flex-col p-6 md:min-h-[860px]">
+        <button className="icon-btn w-max" onClick={onBack}>Back</button>
+        <div className="pt-6 text-center">
+          <span className="mx-auto flex h-14 w-28 items-center justify-center overflow-hidden rounded-xl bg-[#171717] ring-1 ring-black/5">
+            <Image src="/images/depoh logo.webp" alt="Dipoh" width={128} height={128} className="h-24 w-24 object-contain" priority />
+          </span>
+          <div className="mx-auto mt-7 h-28 max-w-[18rem] overflow-hidden rounded-[1.35rem] bg-[#e8dbcf] shadow-lg shadow-[#171311]/8">
+            <Image src="/images/hero-kopitiam.jpg" alt="Ipoh coffee table with local breakfast" width={420} height={180} className="h-full w-full object-cover" />
+          </div>
+          <h1 className="mt-7 font-display text-5xl font-bold leading-none">Welcome back.</h1>
+          <p className="mt-3 text-base font-semibold text-black/55">Continue your Ipoh journey.</p>
+        </div>
+
+        <div className="mt-8 space-y-4">
+          <label className="block">
+            <span className="field-label">Email</span>
+            <input className="field" type="email" value={email} onChange={(event) => setEmail(event.target.value)} placeholder="you@example.com" />
+          </label>
+          <label className="block">
+            <span className="field-label">Password</span>
+            <div className="relative">
+              <input className="field pr-20" type={showPassword ? "text" : "password"} value={password} onChange={(event) => setPassword(event.target.value)} placeholder="Password" />
+              <button type="button" className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full px-3 py-2 text-xs font-black text-[#ff3038]" onClick={() => setShowPassword((current) => !current)}>
+                {showPassword ? "Hide" : "Show"}
+              </button>
+            </div>
+          </label>
+          <button className="text-sm font-black text-[#ff3038]" onClick={() => {
+            setResetOpen(true);
+            setResetSent(false);
+          }}>
+            Forgot password?
+          </button>
+          {error && <p className="rounded-2xl bg-[#fff0f3] p-3 text-sm font-bold text-[#c7465f]">{error}</p>}
+        </div>
+
+        {resetOpen && (
+          <div className="mt-4 rounded-[1.25rem] bg-white p-4 shadow-sm ring-1 ring-black/5">
+            <div className="flex items-start justify-between gap-4">
+              <div>
+                <p className="font-bold">Reset password</p>
+                <p className="mt-1 text-sm text-black/50">{resetSent ? "Reset instructions sent." : "We will send mock reset instructions to your email."}</p>
+              </div>
+              <button className="text-xs font-black text-black/40" onClick={() => setResetOpen(false)}>Close</button>
+            </div>
+            {!resetSent && <button className="secondary-btn mt-4" onClick={() => setResetSent(true)}>Send Instructions</button>}
+          </div>
+        )}
+
+        <div className="mt-auto pt-8">
+          <button className="primary-btn" onClick={signIn}>Sign In</button>
+          <div className="my-5 flex items-center gap-3 text-xs font-bold uppercase tracking-[0.16em] text-black/30">
+            <span className="h-px flex-1 bg-black/10" />
+            or
+            <span className="h-px flex-1 bg-black/10" />
+          </div>
+          <button className="secondary-btn" onClick={onSuccess}>Continue with Google</button>
+          <p className="mt-6 text-center text-sm font-semibold text-black/50">
+            New to D&apos;Ipoh?{" "}
+            <button className="font-black text-[#ff3038] underline decoration-[#ff3038]/30 underline-offset-4" onClick={onPlan}>
+              Plan your Ipoh day &rarr;
+            </button>
+          </p>
+        </div>
+      </div>
+    </Shell>
+  );
+}
+
 function Picker({ title, subtitle, items, selected, multi, onToggle }: { title: string; subtitle?: string; items: string[]; selected: string[]; multi?: boolean; onToggle: (item: string) => void }) {
   return <section><p className="text-sm font-bold text-[#ff5f7e]">Personalize Me</p><h2 className="mt-2 font-display text-4xl font-bold leading-tight">{title}</h2>{subtitle && <p className="mt-2 text-sm text-black/55">{subtitle}</p>}<div className="mt-8 flex flex-wrap gap-3">{items.map((item) => <button key={item} className={`rounded-full border px-4 py-3 text-sm font-bold transition ${selected.includes(item) ? "border-[#ff5f7e] bg-[#ff5f7e] text-white shadow-lg shadow-[#ff5f7e]/25" : "border-black/10 bg-white text-black/70"}`} onClick={() => onToggle(item)}>{item}{multi && selected.includes(item) ? " +" : ""}</button>)}</div></section>;
 }
@@ -474,7 +635,7 @@ function StylePicker({ value, onChange }: { value: TravelStyle; onChange: (value
 }
 
 function KnownPlaces({ selected, onToggle }: { selected: string[]; onToggle: (id: string) => void }) {
-  return <section><p className="text-sm font-bold text-[#ff5f7e]">Personalize Me</p><h2 className="mt-2 font-display text-4xl font-bold leading-tight">Any places already in mind?</h2><p className="mt-2 text-sm text-black/55">Pick known destinations or continue with D&apos;Ipoh&apos;s suggestions.</p><div className="mt-6 grid grid-cols-2 gap-3">{places.slice(0, 8).map((place) => <button key={place.id} onClick={() => onToggle(place.id)} className={`overflow-hidden rounded-2xl text-left shadow-sm ring-1 ${selected.includes(place.id) ? "ring-[#ff5f7e]" : "ring-black/5"}`}><div className="h-24" style={{ background: place.image }} /><div className="p-3"><b className="text-sm">{place.name}</b><p className="text-[11px] text-black/45">{place.category}</p></div></button>)}</div></section>;
+  return <section><p className="text-sm font-bold text-[#ff5f7e]">Personalize Me</p><h2 className="mt-2 font-display text-4xl font-bold leading-tight">Any places already in mind?</h2><p className="mt-2 text-sm text-black/55">Pick known destinations or continue with D&apos;Ipoh&apos;s suggestions.</p><div className="mt-6 grid grid-cols-2 gap-3">{places.slice(0, 8).map((place) => <button key={place.id} onClick={() => onToggle(place.id)} className={`overflow-hidden rounded-2xl text-left shadow-sm ring-1 ${selected.includes(place.id) ? "ring-[#ff5f7e]" : "ring-black/5"}`}><div className="h-24" style={imageBackground(place.image)} /><div className="p-3"><b className="text-sm">{place.name}</b><p className="text-[11px] text-black/45">{place.category}</p></div></button>)}</div></section>;
 }
 
 function ResultPreview({ prefs, preview, onComplete }: { prefs: DemoState["preferences"]; preview: Place[]; onComplete: () => void }) {
@@ -483,7 +644,7 @@ function ResultPreview({ prefs, preview, onComplete }: { prefs: DemoState["prefe
 
 function Home({ state, pass, balance, recommendations, itinerary, progress, completedCount, onStory, onPlace, onPass, onQuest, onMap, onReward }: { state: DemoState; pass?: PassPackage; balance: number; recommendations: Place[]; itinerary: Place[]; progress: number; completedCount: number; onStory: (name: string) => void; onPlace: (id: string) => void; onPass: () => void; onQuest: () => void; onMap: () => void; onReward: (id: string) => void }) {
   const hero = recommendations[0];
-  return <div className="space-y-6 p-5"><header className="flex items-center justify-between pt-2"><div><p className="text-sm">Good Morning, <b className="text-[#ff5f7e]">Jessica</b></p><h1 className="mt-1 text-sm text-black/50">Discover your favourite side of Ipoh.</h1></div><button className="icon-btn" onClick={onPass}>{pass ? "pass" : "plan"}</button></header><div className="search">Search Ipoh places, rewards, cafes</div><StoryRow onStory={onStory} /><ActivePassCard pass={pass} balance={balance} onClick={onPass} /><QuestCard completed={completedCount} total={checkpoints.length} progress={progress} onClick={onQuest} /><Section title={"Today's Itinerary"} action="View Map"><button className="w-full" onClick={onMap}><ItineraryList itinerary={itinerary} compact /></button></Section><Section title="Your Interests"><div className="flex gap-2 overflow-x-auto no-scrollbar">{state.preferences.interests.map((item) => <Chip key={item}>{item}</Chip>)}</div></Section><Section title="Recommended For You"><button className="featured-card text-left" onClick={() => onPlace(hero.id)}><div className="image-fill" style={{ background: hero.image }} /><div className="absolute inset-x-4 bottom-4 rounded-2xl bg-white/92 p-4 shadow-lg"><div className="flex items-start justify-between gap-3"><div><h2 className="font-display text-2xl font-bold">{hero.name}</h2><p className="text-xs text-black/55">{recommendationReason(hero, state)}</p></div><span className="points">+{Math.round(hero.basePoints * (pass?.multiplier ?? 1))} pts</span></div></div></button></Section><Section title="More For You"><div className="flex gap-3 overflow-x-auto no-scrollbar">{recommendations.slice(1, 5).map((place) => <MiniPlace key={place.id} place={place} state={state} onClick={() => onPlace(place.id)} />)}</div></Section><Section title="Popular Rewards" action={`${balance} pts`}><div className="grid grid-cols-2 gap-3">{rewards.slice(0, 2).map((reward) => <RewardCard key={reward.id} reward={reward} stock={state.rewardStock[reward.id] ?? 0} onClick={() => onReward(reward.id)} />)}</div></Section></div>;
+  return <div className="space-y-6 p-5"><header className="flex items-center justify-between pt-2"><div><p className="text-sm">Good Morning, <b className="text-[#ff5f7e]">Jessica</b></p><h1 className="mt-1 text-sm text-black/50">Discover your favourite side of Ipoh.</h1></div><button className="icon-btn" onClick={onPass}>{pass ? "pass" : "plan"}</button></header><div className="search">Search Ipoh places, rewards, cafes</div><StoryRow onStory={onStory} /><ActivePassCard pass={pass} balance={balance} onClick={onPass} /><QuestCard completed={completedCount} total={checkpoints.length} progress={progress} onClick={onQuest} /><Section title={"Today's Itinerary"} action="View Map"><button className="w-full" onClick={onMap}><ItineraryList itinerary={itinerary} compact /></button></Section><Section title="Your Interests"><div className="flex gap-2 overflow-x-auto no-scrollbar">{state.preferences.interests.map((item) => <Chip key={item}>{item}</Chip>)}</div></Section><Section title="Recommended For You"><button className="featured-card text-left" onClick={() => onPlace(hero.id)}><div className="image-fill" style={imageBackground(hero.image)} /><div className="absolute inset-x-4 bottom-4 rounded-2xl bg-white/92 p-4 shadow-lg"><div className="flex items-start justify-between gap-3"><div><h2 className="font-display text-2xl font-bold">{hero.name}</h2><p className="text-xs text-black/55">{recommendationReason(hero, state)}</p></div><span className="points">+{Math.round(hero.basePoints * (pass?.multiplier ?? 1))} pts</span></div></div></button></Section><Section title="More For You"><div className="flex gap-3 overflow-x-auto no-scrollbar">{recommendations.slice(1, 5).map((place) => <MiniPlace key={place.id} place={place} state={state} onClick={() => onPlace(place.id)} />)}</div></Section><Section title="Popular Rewards" action={`${balance} pts`}><div className="grid grid-cols-2 gap-3">{rewards.slice(0, 2).map((reward) => <RewardCard key={reward.id} reward={reward} stock={state.rewardStock[reward.id] ?? 0} onClick={() => onReward(reward.id)} />)}</div></Section></div>;
 }
 
 function ActivePassCard({ pass, balance, onClick }: { pass?: PassPackage; balance: number; onClick: () => void }) {
@@ -554,7 +715,7 @@ function RewardsScreen({ state, pass, onReward }: { state: DemoState; pass?: Pas
 function RewardDetail({ reward, state, redemption, onBack, onRedeem }: { reward: Reward; state: DemoState; redemption: { rewardId: string; code: string } | null; onBack: () => void; onRedeem: (reward: Reward) => void }) {
   const stock = state.rewardStock[reward.id] ?? 0;
   if (redemption?.rewardId === reward.id) return <div className="p-5"><button className="icon-btn mb-5" onClick={onBack}>back</button><div className="success-card"><p className="text-sm font-bold uppercase tracking-[0.2em] text-white/80">Reward Redeemed</p><h1 className="mt-3 font-display text-4xl font-bold">{reward.name}</h1><div className="mx-auto mt-8 w-max rounded-2xl bg-white px-6 py-4 font-mono text-2xl font-black text-[#171311]">{redemption.code}</div><p className="mt-4 text-sm text-white/80">Show this code at the partner counter.</p></div></div>;
-  return <div><div className="h-80" style={{ background: reward.image }} /><div className="-mt-8 rounded-t-[2rem] bg-white p-5"><button className="icon-btn mb-4" onClick={onBack}>back</button><h1 className="font-display text-4xl font-bold">{reward.name}</h1><p className="mt-2 text-sm leading-6 text-black/60">{reward.merchant} - {reward.category}</p><div className="mt-5 grid grid-cols-2 gap-3"><Info label="Required" value={`${reward.points} pts`} /><Info label="Availability" value={`${stock} left`} /><Info label="Your Balance" value={`${state.points} pts`} /><Info label="After Redeem" value={`${Math.max(0, state.points - reward.points)} pts`} /></div><button className="primary-btn mt-6 disabled:opacity-45" disabled={state.points < reward.points || stock < 1} onClick={() => onRedeem(reward)}>{state.points < reward.points ? `Need ${reward.points - state.points} more pts` : "Redeem Reward"}</button></div></div>;
+  return <div><div className="h-80" style={imageBackground(reward.image)} /><div className="-mt-8 rounded-t-[2rem] bg-white p-5"><button className="icon-btn mb-4" onClick={onBack}>back</button><h1 className="font-display text-4xl font-bold">{reward.name}</h1><p className="mt-2 text-sm leading-6 text-black/60">{reward.merchant} - {reward.category}</p><div className="mt-5 grid grid-cols-2 gap-3"><Info label="Required" value={`${reward.points} pts`} /><Info label="Availability" value={`${stock} left`} /><Info label="Your Balance" value={`${state.points} pts`} /><Info label="After Redeem" value={`${Math.max(0, state.points - reward.points)} pts`} /></div><button className="primary-btn mt-6 disabled:opacity-45" disabled={state.points < reward.points || stock < 1} onClick={() => onRedeem(reward)}>{state.points < reward.points ? `Need ${reward.points - state.points} more pts` : "Redeem Reward"}</button></div></div>;
 }
 
 function Profile({ state, pass, onPass, onReset }: { state: DemoState; pass?: PassPackage; onPass: () => void; onReset: () => void }) {
@@ -565,7 +726,7 @@ function PlaceDetail({ place, state, pass, alternatives, onBack, onMap, onScan, 
   const inItinerary = state.itinerary.includes(place.id);
   const points = Math.round(place.basePoints * (pass?.multiplier ?? 1));
   const swappable = inItinerary && state.itinerarySwapsRemaining !== 0;
-  return <div><div className="relative h-80" style={{ background: place.image }}><button className="absolute left-5 top-5 icon-btn" onClick={onBack}>back</button><button className="absolute right-5 top-5 icon-btn" onClick={onMap}>map</button></div><div className="-mt-8 rounded-t-[2rem] bg-white p-5"><div className="flex items-start justify-between gap-3"><div><h1 className="font-display text-4xl font-bold">{place.name}</h1><p className="mt-1 text-sm text-black/55">Star {place.rating} - {place.tags.slice(0, 3).join(" - ")}</p></div>{place.checkpoint && <span className="points">+{points}</span>}</div><div className="mt-4 rounded-2xl bg-[#fff5f3] p-4 text-sm font-semibold text-[#c7465f]">{recommendationReason(place, state)}</div><Section title="About"><p className="text-sm leading-6 text-black/65">{place.description}</p></Section><div className="grid grid-cols-2 gap-3 text-sm"><Info label="Distance" value={`${place.distanceKm} km`} /><Info label="Opening" value={place.openingHours} /><Info label="Budget" value={place.priceRange} /><Info label="Duration" value={`${place.durationMinutes} mins`} /></div>{place.partner && <div className="mt-4 rounded-2xl bg-[#171311] p-4 text-white"><p className="text-xs font-black uppercase text-white/55">{pass?.tier === "VIP" ? "VIP Partner Perk" : "Partner Perk"}</p><p className="mt-1 text-sm font-bold">{pass?.tier === "VIP" ? "Priority reservation plus exclusive reward." : pass?.tier === "QUEST_PLUS" ? "Quest+ members get 10% off selected items." : "Standard members unlock local privileges."}</p></div>}<div className="mt-5 grid grid-cols-2 gap-3"><button className="secondary-btn" onClick={onMap}>View Map</button><button className="primary-btn" onClick={() => onAdd(place.id)}>{inItinerary ? "In My Day" : "Add to My Day"}</button></div>{place.checkpoint && <button className="primary-btn mt-3" onClick={onScan}>Scan Checkpoint</button>}{swappable && <Section title="Replace this stop?"><div className="flex gap-3 overflow-x-auto no-scrollbar">{alternatives.slice(0, 4).map((item) => <button key={item.id} onClick={() => onSwap(place.id, item.id)} className="w-40 shrink-0 overflow-hidden rounded-2xl bg-white text-left shadow-sm ring-1 ring-black/5"><div className="h-28" style={{ background: item.image }} /><div className="p-3"><b className="text-sm">{item.name}</b><p className="text-[11px] text-black/45">Swap in</p></div></button>)}</div></Section>}<Section title="Nearby Places"><div className="flex gap-3 overflow-x-auto no-scrollbar">{alternatives.map((item) => <MiniPlace key={item.id} place={item} state={state} onClick={() => onPlace(item.id)} />)}</div></Section></div></div>;
+  return <div><div className="relative h-80" style={imageBackground(place.image)}><button className="absolute left-5 top-5 icon-btn" onClick={onBack}>back</button><button className="absolute right-5 top-5 icon-btn" onClick={onMap}>map</button></div><div className="-mt-8 rounded-t-[2rem] bg-white p-5"><div className="flex items-start justify-between gap-3"><div><h1 className="font-display text-4xl font-bold">{place.name}</h1><p className="mt-1 text-sm text-black/55">Star {place.rating} - {place.tags.slice(0, 3).join(" - ")}</p></div>{place.checkpoint && <span className="points">+{points}</span>}</div><div className="mt-4 rounded-2xl bg-[#fff5f3] p-4 text-sm font-semibold text-[#c7465f]">{recommendationReason(place, state)}</div><Section title="About"><p className="text-sm leading-6 text-black/65">{place.description}</p></Section><div className="grid grid-cols-2 gap-3 text-sm"><Info label="Distance" value={`${place.distanceKm} km`} /><Info label="Opening" value={place.openingHours} /><Info label="Budget" value={place.priceRange} /><Info label="Duration" value={`${place.durationMinutes} mins`} /></div>{place.partner && <div className="mt-4 rounded-2xl bg-[#171311] p-4 text-white"><p className="text-xs font-black uppercase text-white/55">{pass?.tier === "VIP" ? "VIP Partner Perk" : "Partner Perk"}</p><p className="mt-1 text-sm font-bold">{pass?.tier === "VIP" ? "Priority reservation plus exclusive reward." : pass?.tier === "QUEST_PLUS" ? "Quest+ members get 10% off selected items." : "Standard members unlock local privileges."}</p></div>}<div className="mt-5 grid grid-cols-2 gap-3"><button className="secondary-btn" onClick={onMap}>View Map</button><button className="primary-btn" onClick={() => onAdd(place.id)}>{inItinerary ? "In My Day" : "Add to My Day"}</button></div>{place.checkpoint && <button className="primary-btn mt-3" onClick={onScan}>Scan Checkpoint</button>}{swappable && <Section title="Replace this stop?"><div className="flex gap-3 overflow-x-auto no-scrollbar">{alternatives.slice(0, 4).map((item) => <button key={item.id} onClick={() => onSwap(place.id, item.id)} className="w-40 shrink-0 overflow-hidden rounded-2xl bg-white text-left shadow-sm ring-1 ring-black/5"><div className="h-28" style={imageBackground(item.image)} /><div className="p-3"><b className="text-sm">{item.name}</b><p className="text-[11px] text-black/45">Swap in</p></div></button>)}</div></Section>}<Section title="Nearby Places"><div className="flex gap-3 overflow-x-auto no-scrollbar">{alternatives.map((item) => <MiniPlace key={item.id} place={item} state={state} onClick={() => onPlace(item.id)} />)}</div></Section></div></div>;
 }
 
 function ItineraryList({ itinerary, compact }: { itinerary: Place[]; compact?: boolean }) {
@@ -582,20 +743,20 @@ function BottomNav({ view, setView }: { view: View; setView: (view: View) => voi
 }
 
 function StoryRow({ onStory }: { onStory: (name: string) => void }) {
-  const stories = [["Your Story", "My Day", "linear-gradient(135deg,#ffd166,#ef476f)"], ["Aina", "Kek Lok Tong", "linear-gradient(135deg,#80ed99,#57cc99)"], ["Sarah", "Concubine Lane", "linear-gradient(135deg,#ffafcc,#ffc8dd)"], ["Amir", "White Coffee", "linear-gradient(135deg,#cdb4db,#bde0fe)"], ["Jason", "Tasik Cermin", "linear-gradient(135deg,#90dbf4,#a3c4f3)"]];
-  return <div className="flex gap-3 overflow-x-auto no-scrollbar">{stories.map(([name, label, bg]) => <button key={name} className="w-[72px] shrink-0 text-center" onClick={() => onStory(name)}><span className="mx-auto block h-16 w-16 rounded-full border-2 border-[#ff5f7e] p-1"><span className="block h-full rounded-full" style={{ background: bg }} /></span><span className="mt-1 block truncate text-[11px] font-bold">{name}</span><span className="block truncate text-[10px] text-black/40">{label}</span></button>)}</div>;
+  return <div className="flex gap-3 overflow-x-auto no-scrollbar">{storyItems.map((story) => <button key={story.name} className="w-[72px] shrink-0 text-center" onClick={() => onStory(story.name)}><span className="mx-auto block h-16 w-16 rounded-full border-2 border-[#ff5f7e] p-1"><span className="block h-full rounded-full" style={imageBackground(story.image, false)} /></span><span className="mt-1 block truncate text-[11px] font-bold">{story.name}</span><span className="block truncate text-[10px] text-black/40">{story.label}</span></button>)}</div>;
 }
 
 function StoryModal({ name, onClose }: { name: string; onClose: () => void }) {
-  return <div className="fixed inset-0 z-50 grid place-items-center bg-black/70 p-5"><div className="relative h-[720px] max-h-[88vh] w-full max-w-sm overflow-hidden rounded-[2rem] bg-[linear-gradient(135deg,#ff5f7e,#ffb067)] p-5 text-white shadow-2xl"><button className="absolute right-4 top-4 rounded-full bg-white/20 px-3 py-2 text-sm font-bold" onClick={onClose}>Close</button><div className="mt-auto flex h-full flex-col justify-end"><p className="text-sm font-bold">{name}</p><h2 className="font-display text-4xl font-bold">A bright Ipoh stop worth saving.</h2><p className="mt-2 text-sm text-white/80">Static story preview for the stakeholder demo.</p></div></div></div>;
+  const story = storyItems.find((item) => item.name === name) ?? storyItems[0];
+  return <div className="fixed inset-0 z-50 grid place-items-center bg-black/70 p-5"><div className="relative h-[720px] max-h-[88vh] w-full max-w-sm overflow-hidden rounded-[2rem] p-5 text-white shadow-2xl" style={imageBackground(story.image)}><button className="absolute right-4 top-4 rounded-full bg-white/25 px-3 py-2 text-sm font-bold backdrop-blur" onClick={onClose}>Close</button><div className="mt-auto flex h-full flex-col justify-end"><p className="text-sm font-bold">{name}</p><h2 className="font-display text-4xl font-bold">A bright Ipoh stop worth saving.</h2><p className="mt-2 text-sm text-white/80">Static story preview for the stakeholder demo.</p></div></div></div>;
 }
 
 function LocationCard({ place, state, onClick }: { place: Place; state: DemoState; onClick: () => void }) {
-  return <button onClick={onClick} className="overflow-hidden rounded-2xl bg-white text-left shadow-sm ring-1 ring-black/5"><div className="h-36" style={{ background: place.image }} /><div className="p-3"><h3 className="font-bold leading-tight">{place.name}</h3><p className="mt-1 text-[11px] text-black/45">{place.tags.slice(0, 2).join(" - ")}</p><div className="mt-2 flex items-center justify-between"><span className="rounded-full bg-[#fff0f3] px-2 py-1 text-[10px] font-bold text-[#ff5f7e]">{Math.min(99, scorePlace(place, state))}% Match</span>{place.checkpoint && <span className="text-[10px] font-black">+{place.basePoints}</span>}</div></div></button>;
+  return <button onClick={onClick} className="overflow-hidden rounded-2xl bg-white text-left shadow-sm ring-1 ring-black/5"><div className="h-36" style={imageBackground(place.image)} /><div className="p-3"><h3 className="font-bold leading-tight">{place.name}</h3><p className="mt-1 text-[11px] text-black/45">{place.tags.slice(0, 2).join(" - ")}</p><div className="mt-2 flex items-center justify-between"><span className="rounded-full bg-[#fff0f3] px-2 py-1 text-[10px] font-bold text-[#ff5f7e]">{Math.min(99, scorePlace(place, state))}% Match</span>{place.checkpoint && <span className="text-[10px] font-black">+{place.basePoints}</span>}</div></div></button>;
 }
 
 function MiniPlace({ place, state, onClick }: { place: Place; state: DemoState; onClick: () => void }) {
-  return <button onClick={onClick} className="w-40 shrink-0 overflow-hidden rounded-2xl bg-white text-left shadow-sm ring-1 ring-black/5"><div className="h-32" style={{ background: place.image }} /><div className="p-3"><h3 className="truncate font-bold">{place.name}</h3><p className="text-[11px] text-black/45">{Math.min(99, scorePlace(place, state))}% match</p></div></button>;
+  return <button onClick={onClick} className="w-40 shrink-0 overflow-hidden rounded-2xl bg-white text-left shadow-sm ring-1 ring-black/5"><div className="h-32" style={imageBackground(place.image)} /><div className="p-3"><h3 className="truncate font-bold">{place.name}</h3><p className="text-[11px] text-black/45">{Math.min(99, scorePlace(place, state))}% match</p></div></button>;
 }
 
 function MiniMapPlace({ place, onClick }: { place: Place; onClick: () => void }) {
@@ -603,7 +764,7 @@ function MiniMapPlace({ place, onClick }: { place: Place; onClick: () => void })
 }
 
 function RewardCard({ reward, stock, onClick }: { reward: Reward; stock: number; onClick: () => void }) {
-  return <button onClick={onClick} className="overflow-hidden rounded-2xl bg-white text-left shadow-sm ring-1 ring-black/5"><div className="h-28" style={{ background: reward.image }} /><div className="p-3"><h3 className="font-bold leading-tight">{reward.name}</h3><p className="mt-1 text-xs font-black text-[#ff5f7e]">{reward.points} pts</p><p className="text-[10px] text-black/40">{reward.merchant} - {stock} left</p></div></button>;
+  return <button onClick={onClick} className="overflow-hidden rounded-2xl bg-white text-left shadow-sm ring-1 ring-black/5"><div className="h-28" style={imageBackground(reward.image)} /><div className="p-3"><h3 className="font-bold leading-tight">{reward.name}</h3><p className="mt-1 text-xs font-black text-[#ff5f7e]">{reward.points} pts</p><p className="text-[10px] text-black/40">{reward.merchant} - {stock} left</p></div></button>;
 }
 
 function Section({ title, action, children }: { title: string; action?: string; children: React.ReactNode }) {

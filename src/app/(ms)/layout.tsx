@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     alternateLocale: "en_MY",
   },
   icons: {
-    icon: "/images/logo.png",
+    icon: "/images/depoh logo.webp",
   },
   manifest: "/manifest.webmanifest",
 };

@@ -110,9 +110,10 @@ function Header({ homeHref, langHref, langLabel }: { homeHref: string; langHref:
   return (
     <header className="sticky top-0 z-50 border-b border-[#171311]/10 bg-[#f7f0e8]/90 backdrop-blur-xl">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 md:px-8">
-        <a href={homeHref} className="flex items-center gap-2 font-display text-lg font-semibold tracking-wide">
-          <span className="grid h-8 w-8 place-items-center rounded-full bg-[#f26d4f] text-sm text-white">DI</span>
-          <span>DE IPOH</span>
+        <a href={homeHref} className="flex items-center gap-3 font-display text-lg font-semibold tracking-wide">
+          <span className="flex h-12 w-24 items-center justify-center overflow-hidden rounded-xl bg-[#171717] ring-1 ring-white/40">
+            <Image src="/images/depoh logo.webp" alt="Dipoh" width={96} height={96} className="h-20 w-20 object-contain" priority />
+          </span>
         </a>
         <nav aria-label="Primary" className="hidden items-center gap-8 text-sm font-semibold lg:flex">
           <a href="#discover" className="hover:text-[#d95336]">Discover</a>
@@ -125,7 +126,7 @@ function Header({ homeHref, langHref, langLabel }: { homeHref: string; langHref:
         <div className="flex items-center gap-3 text-sm font-semibold">
           <a href="#experiences" className="hidden hover:text-[#d95336] sm:inline">Search</a>
           <a href={langHref} className="hidden hover:text-[#d95336] md:inline">{langLabel}</a>
-          <a href="#plan" className="rounded-full bg-[#171311] px-5 py-2 text-white transition hover:bg-[#d95336]">Plan My Trip</a>
+          <a href="#plan" className="rounded-full bg-[#171311] px-5 py-2 text-white transition hover:bg-[#ff3038]">Plan My Trip</a>
           <a href="#menu" className="lg:hidden" aria-label="Open menu">Menu</a>
         </div>
       </div>
@@ -143,13 +144,13 @@ function Hero() {
         </p>
         <h1 className="font-display text-6xl font-semibold leading-[0.95] tracking-normal sm:text-7xl lg:text-8xl">
           Discover Ipoh,
-          <span className="block text-[#f26d4f]">Your Way.</span>
+          <span className="block text-[#ff3038]">Your Way.</span>
         </h1>
         <p className="mt-7 max-w-xl text-lg leading-8 text-[#4e4039]">
           Hidden places, unforgettable food and local experiences curated around your interests, budget and travel style.
         </p>
         <div className="mt-9 flex flex-wrap items-center gap-4">
-          <a href="#plan" className="rounded-full bg-[#f26d4f] px-7 py-3 text-base font-bold text-white shadow-[0_14px_35px_rgba(242,109,79,0.28)] transition hover:bg-[#171311]">
+          <a href="#plan" className="rounded-full bg-[#ff3038] px-7 py-3 text-base font-bold text-white shadow-[0_14px_35px_rgba(255,48,56,0.25)] transition hover:bg-[#171311]">
             Plan My Trip
           </a>
           <a href="#experiences" className="rounded-full border border-[#171311]/30 px-7 py-3 text-base font-bold transition hover:border-[#f26d4f] hover:text-[#d95336]">
@@ -179,7 +180,7 @@ function Hero() {
           label="Nature"
         />
         <div className="absolute -bottom-8 left-8 hidden h-24 w-24 rounded-full border border-dashed border-[#d95336]/60 md:block" />
-        <div className="absolute left-1/2 top-1/2 hidden text-4xl text-[#f26d4f] md:block">x</div>
+        <div className="absolute left-1/2 top-1/2 hidden text-4xl text-[#ff3038] md:block">x</div>
       </div>
     </section>
   );
@@ -468,7 +469,9 @@ function SiteFooter({ privacyHref }: { privacyHref: string }) {
     <footer id="menu" className="bg-[#fffaf4] px-5 pt-14 md:px-8">
       <div className="mx-auto grid max-w-7xl gap-10 md:grid-cols-[1.2fr_repeat(5,1fr)]">
         <div>
-          <p className="font-display text-xl font-semibold">DE IPOH</p>
+          <span className="flex h-16 w-28 items-center justify-center overflow-hidden rounded-xl bg-[#171717] ring-1 ring-[#171311]/10">
+            <Image src="/images/depoh logo.webp" alt="Dipoh" width={112} height={112} className="h-24 w-24 object-contain" />
+          </span>
           <p className="mt-3 max-w-xs text-sm leading-6 text-[#5c5049]">Your journey, curated around you. Discover the Ipoh you would not find on your own.</p>
         </div>
         {footerGroups.map(([heading, ...links]) => (
@@ -483,7 +486,7 @@ function SiteFooter({ privacyHref }: { privacyHref: string }) {
         ))}
       </div>
       <div className="mx-auto mt-12 flex max-w-7xl flex-col gap-3 border-t border-[#171311]/10 py-6 text-xs text-[#5c5049] md:flex-row md:items-center md:justify-between">
-        <p>Copyright 2026 De Ipoh. All rights reserved.</p>
+        <p>Copyright 2026 Dipoh. All rights reserved.</p>
         <p>Discover. Personalize. Explore. Earn.</p>
       </div>
     </footer>

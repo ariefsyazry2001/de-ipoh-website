@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import {
@@ -66,12 +67,10 @@ function AdminSidebar({ active }: { active: AdminPage }) {
   const groups = [...new Set(adminSections.map((section) => section.group))];
   return (
     <aside className="border-r border-[#171311]/10 bg-[#fffdfb] p-5 lg:sticky lg:top-0 lg:h-screen">
-      <Link href="/" className="flex items-center gap-3">
-        <span className="grid h-11 w-11 place-items-center rounded-full bg-[#f26d4f] font-black text-white">DI</span>
-        <div>
-          <p className="font-display text-2xl font-semibold leading-none">D&apos;IPOH</p>
-          <p className="text-xs font-black uppercase tracking-[0.18em] text-[#d95336]">Admin</p>
-        </div>
+      <Link href="/" className="flex items-center">
+        <span className="flex h-14 w-24 items-center justify-center overflow-hidden rounded-xl bg-[#171717] ring-1 ring-[#171311]/10">
+          <Image src="/images/depoh logo.webp" alt="Dipoh" width={96} height={96} className="h-20 w-20 object-contain" priority />
+        </span>
       </Link>
       <nav className="mt-8 space-y-7">
         {groups.map((group) => (
@@ -100,8 +99,7 @@ function AdminHeader({ page, range, setRange }: { page: string; range: DateRange
     <header className="border-b border-[#171311]/10 bg-[#f7f0e8]/90 px-5 py-5 backdrop-blur md:px-8">
       <div className="mx-auto flex max-w-[1500px] flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
         <div>
-          <p className="text-xs font-black uppercase tracking-[0.2em] text-[#d95336]">D&apos;Ipoh Admin</p>
-          <h1 className="mt-1 font-display text-4xl font-semibold">{page}</h1>
+          <h1 className="font-display text-4xl font-semibold">{page}</h1>
           <p className="mt-1 text-sm text-[#5c5049]">Last updated: {overview.updatedAt}</p>
         </div>
         <div className="flex flex-wrap items-center gap-2">
