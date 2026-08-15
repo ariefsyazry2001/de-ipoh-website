@@ -180,12 +180,11 @@ const checkpoints: Checkpoint[] = [
 ];
 
 const rewards: Reward[] = [
-  { id: "white-coffee", name: "Ipoh White Coffee", points: 700, merchant: "Nam Heong White Coffee", category: "Drinks", availability: "18 left", image: "/images/reward-ipoh-coffee.jpg" },
-  { id: "keychain", name: "D'Ipoh Keychain", points: 500, merchant: "Old Town Snack Box", category: "Souvenir", availability: "12 left", image: "/images/ipoh-editorial-collage.png" },
-  { id: "magnet", name: "Heritage Fridge Magnet", points: 350, merchant: "Kong Heng Square", category: "Souvenir", availability: "25 left", image: "/images/reward-magenet.jpg" },
-  { id: "tote", name: "D'Ipoh Tote Bag", points: 1000, merchant: "Concubine Lane Merchant", category: "Souvenir", availability: "8 left", image: "/images/reward-tote.jpg" },
-  { id: "voucher", name: "RM10 Food Voucher", points: 600, merchant: "Partner food stalls", category: "Food", availability: "20 left", image: "/images/hero-kopitiam.jpg" },
-  { id: "snack-box", name: "Local Snack Box", points: 850, merchant: "Old Town Snack Box", category: "Food", availability: "10 left", image: "/images/hero-kopitiam-2.png" },
+  { id: "white-coffee", name: "Ipoh White Coffee", points: 250, merchant: "Nam Heong White Coffee", category: "F&B reward", availability: "18 left", image: "/images/reward-ipoh-coffee.jpg" },
+  { id: "voucher", name: "RM10 Food Voucher", points: 500, merchant: "Partner dining spots", category: "Dining reward", availability: "20 left", image: "/images/hero-kopitiam.jpg" },
+  { id: "snack-box", name: "Local Snack Box", points: 750, merchant: "Old Town Snack Box", category: "Wellness reward", availability: "10 left", image: "/images/hero-kopitiam-2.png" },
+  { id: "tote", name: "D'Ipoh Tote Bag", points: 1000, merchant: "Concubine Lane Merchant", category: "Attraction reward", availability: "8 left", image: "/images/reward-tote.jpg" },
+  { id: "premium-lost-world", name: "Premium Lost World", points: 1500, merchant: "Lost World of Tambun", category: "Premium reward", availability: "5 left", image: "/images/Lost World.jpg" },
 ];
 
 const storyItems = [
@@ -321,7 +320,7 @@ export function IpohDiscoveryApp() {
   const [view, setView] = useState<View>("home");
   const [selectedPlace, setSelectedPlace] = useState("kong-heng");
   const [selectedPass, setSelectedPass] = useState<PassTier>("QUEST_PLUS");
-  const [selectedReward, setSelectedReward] = useState("keychain");
+  const [selectedReward, setSelectedReward] = useState("white-coffee");
   const [toast, setToast] = useState("");
   const [story, setStory] = useState<string | null>(null);
   const [category, setCategory] = useState("All");
@@ -334,7 +333,8 @@ export function IpohDiscoveryApp() {
       const saved = localStorage.getItem(storageKey);
       if (saved) {
         try {
-          setState({ ...defaultState, ...JSON.parse(saved) });
+          const parsed = JSON.parse(saved) as Partial<DemoState>;
+          setState({ ...defaultState, ...parsed, rewardStock: { ...defaultState.rewardStock, ...parsed.rewardStock } });
         } catch {
           setState(defaultState);
         }
